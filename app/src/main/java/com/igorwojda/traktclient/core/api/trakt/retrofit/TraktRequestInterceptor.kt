@@ -1,4 +1,4 @@
-package com.igorwojda.traktclient.core.api.wemakesites.retrofit
+package com.igorwojda.traktclient.core.api.trakt.retrofit
 
 import com.igorwojda.traktclient.core.api.trakt.TrakAPI
 import okhttp3.Interceptor

@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.controller_movie.view.*
 /**
  * Created by Panel on 14.01.2017
  */
-class MovieController(var detail: String = "", backgroundColor: Int = 0xFFFFFF) : BaseController() {
+class MovieController(var detail: String = "") : BaseController() {
 
 	private lateinit var titleTextView: TextView
 

@@ -1,4 +1,4 @@
-package com.api.trakt.services
+package com.igorwojda.traktclient.core.api.trakt.services
 
 import com.igorwojda.traktclient.core.api.trakt.entities.TrendingMovie
 import com.igorwojda.traktclient.core.api.trakt.enums.Extended

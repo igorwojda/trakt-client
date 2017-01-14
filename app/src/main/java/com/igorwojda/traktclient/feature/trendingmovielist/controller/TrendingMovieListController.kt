@@ -15,6 +15,9 @@ import com.igorwojda.traktclient.core.controllers.base.BaseController
 import com.igorwojda.traktclient.feature.movie.controller.MovieController
 import net.vrallev.android.cat.Cat
 
+/**
+ * Created by Panel on 14.01.2017
+ */
 class TrendingMovieListController : BaseController() {
 
 	init {
@@ -67,11 +70,11 @@ class TrendingMovieListController : BaseController() {
 	}
 
 	internal fun onRowSelected(index: Int) {
-		val trendingMovieAdapter = recyclerView.adapter as TrendingMovieAdapter
+//		val trendingMovieAdapter = recyclerView.adapter as TrendingMovieAdapter
 		selectedIndex = index
 
 		val model = DetailItemModel.values()[index]
-		val controller = MovieController(model.detail, model.backgroundColor)
+		val controller = MovieController(model.detail)
 
 		Cat.d("twoPaneView2 $twoPaneView")
 

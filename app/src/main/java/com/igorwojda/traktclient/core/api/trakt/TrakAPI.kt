@@ -1,11 +1,11 @@
 package com.igorwojda.traktclient.core.api.trakt
 
-import com.api.trakt.services.Movies
+import com.igorwojda.traktclient.core.api.trakt.services.Movies
 import com.igorwojda.traktclient.core.api.trakt.entities.AccessToken
 import com.igorwojda.traktclient.core.api.trakt.retrofit.TraktAuthenticator
 import com.igorwojda.traktclient.core.api.trakt.retrofit.TraktGsonHelper
 import com.igorwojda.traktclient.core.api.trakt.services.Authentication
-import com.igorwojda.traktclient.core.api.wemakesites.retrofit.TraktRequestInterceptor
+import com.igorwojda.traktclient.core.api.trakt.retrofit.TraktRequestInterceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Response
