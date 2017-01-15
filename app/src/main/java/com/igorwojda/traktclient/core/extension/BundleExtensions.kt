@@ -1,4 +1,4 @@
-package com.igorwojda.traktclient.core.extensions
+package com.igorwojda.traktclient.core.extension
 
 import android.os.Bundle
 

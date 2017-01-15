@@ -14,7 +14,6 @@ import com.bumptech.glide.Glide
 import com.igorwojda.traktclient.R
 import com.igorwojda.traktclient.core.api.trakt.entities.Movie
 import com.igorwojda.traktclient.core.api.trakt.entities.TrendingMovie
-import com.igorwojda.traktclient.core.api.trakt.enums.Extended
 import com.igorwojda.traktclient.core.controllers.base.BaseController
 import com.igorwojda.traktclient.feature.movie.controller.MovieController
 import com.igorwojda.traktclient.feature.trendingmovielist.model.TrendingMovieListModel
@@ -60,8 +59,7 @@ class TrendingMovieListController(args: Bundle? = null) : BaseController(args)  
 	}
 
 	private fun loadTrendingMovies() {
-		val movieModel = TrendingMovieListModel()
-		movieModel.trending(extended = Extended.FULL)
+		model.trending()
 				.subscribeOn(Schedulers.newThread())
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribe(
@@ -119,14 +117,12 @@ class TrendingMovieListController(args: Bundle? = null) : BaseController(args)  
 		}
 
 		override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-			holder.bind(items[position], position)
+			holder.bind(items[position])
 		}
 
 		override fun getItemCount(): Int = items.size
 
 		internal inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-//			private var tvTitle = itemView.findViewById(R.id.title) as TextView
-
 			private var localPosition: Int = 0
 
 			init {
@@ -137,7 +133,7 @@ class TrendingMovieListController(args: Bundle? = null) : BaseController(args)  
 				}
 			}
 
-			fun bind(trendingMovie: TrendingMovie, position: Int) {
+			fun bind(trendingMovie: TrendingMovie) {
 				val movie: Movie? = trendingMovie?.movie ?: return
 
 				movie?.title.let { itemView.trending_movie_row_item_title.text = it}
