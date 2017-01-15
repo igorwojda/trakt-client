@@ -1,16 +1,19 @@
-package com.igorwojda.traktclient.core.model
+package com.igorwojda.traktclient.core.api.merged
 
+import com.igorwojda.traktclient.TraktClientApplication
 import com.igorwojda.traktclient.core.api.trakt.entities.Movie
 import com.igorwojda.traktclient.core.api.trakt.entities.TrendingMovie
 import com.igorwojda.traktclient.core.api.trakt.enums.Extended
-import com.igorwojda.traktclient.core.model.base.BaseModel
 import rx.Observable
 import rx.schedulers.Schedulers
 
 /**
  * Created by Panel on 15.01.2017
  */
-class BaseMovieModel : BaseModel() {
+class MergedMovieAPI {
+
+	protected var trakAPI = TraktClientApplication.trakAPI
+	protected val weMakeSitesAPI = TraktClientApplication.weMakeSitesAPI
 
 	fun trending(page: Int? = null,
 				 limit: Int? = null,
@@ -30,7 +33,7 @@ class BaseMovieModel : BaseModel() {
 	}
 
 	fun summary(traktId: String,
-				extended: Extended? = Extended.FULL):Observable<Movie>{
+				extended: Extended? = Extended.FULL): Observable<Movie> {
 		return trakAPI.movies().summary(traktId, extended)
 				.doOnNext { it.image = appendImageUrl(it) }
 	}
