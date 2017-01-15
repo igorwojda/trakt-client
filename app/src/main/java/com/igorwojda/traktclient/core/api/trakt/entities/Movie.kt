@@ -4,6 +4,11 @@ import org.joda.time.DateTime
 
 data class Movie (
 	var title: String? = null,
+	var overview: String? = null,
+	var rating: Double? = null,
+	var votes: Int? = null,
+	var updated_at: DateTime? = null,
+	var available_translations: List<String>? = null,
 	var year: Int? = null,
 	var ids: MovieIds? = null,
 	var certification: String? = null,

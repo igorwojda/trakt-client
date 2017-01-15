@@ -89,7 +89,7 @@ class TrendingMovieListController(args: Bundle? = null) : BaseController(args)  
 
 		val trendingMovieAdapter = recyclerView.adapter as TrendingMovieAdapter
 		val trendingMovie = trendingMovieAdapter.items[index]
-		val movieTraktId = trendingMovie?.movie?.ids?.trakt ?: return
+		val movieTraktId = trendingMovie.movie?.ids?.trakt ?: return
 
 		val controller = MovieController(movieTraktId)
 
@@ -134,7 +134,7 @@ class TrendingMovieListController(args: Bundle? = null) : BaseController(args)  
 			}
 
 			fun bind(trendingMovie: TrendingMovie) {
-				val movie: Movie? = trendingMovie?.movie ?: return
+				val movie: Movie? = trendingMovie.movie ?: return
 
 				movie?.title.let { itemView.trending_movie_row_item_title.text = it}
 

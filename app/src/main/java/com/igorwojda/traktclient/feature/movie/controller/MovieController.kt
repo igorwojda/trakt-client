@@ -54,15 +54,17 @@ class MovieController(args: Bundle) : BaseController(args) {
 	private fun updateView(movie: Movie) {
 		var localView = view ?: return
 
-		movie?.image?.let {
+		movie.image?.let {
 			Glide
 					.with( localView.context )
 					.load( it )
 					.into( localView.controller_movie_image )
 		}
 
-		movie?.title.let { title = it.toString()}
-//		movie?.title.let { localView.controller_movie_title.text = it}
+		movie.title?.let { title = it}
 
+		val genresLabel = resources?.getText(R.string.genres)
+		movie.genres?.let { localView.controller_movie_genres.text = "$genresLabel: ${it.joinToString( separator = " | ")}"}
+		movie.rating?.let { localView.controller_movie_ratingBar.rating = it.toFloat() }
 	}
 }

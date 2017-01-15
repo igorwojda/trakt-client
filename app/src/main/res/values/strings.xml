@@ -3,4 +3,5 @@
     <string name="unknown_title">Unknown title</string>
     <string name="release">Release</string>
     <string name="watchers">Watchers</string>
+    <string name="genres">Genres</string>
 </resources>
