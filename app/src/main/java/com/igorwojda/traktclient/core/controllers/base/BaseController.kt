@@ -1,11 +1,14 @@
 package com.igorwojda.traktclient.core.controllers.base
 
+import android.os.Bundle
 import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import kotlin.properties.Delegates
 
-abstract class BaseController : RefWatchingController() {
+abstract class BaseController : RefWatchingController {
+
+	protected constructor(args: Bundle?) : super(args)
 
 	protected val actionBar: ActionBar?
 		get() = (router?.activity as AppCompatActivity?)?.supportActionBar

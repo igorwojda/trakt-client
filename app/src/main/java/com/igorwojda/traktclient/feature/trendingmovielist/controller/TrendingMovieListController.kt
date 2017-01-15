@@ -19,23 +19,16 @@ import com.igorwojda.traktclient.core.controllers.base.BaseController
 import com.igorwojda.traktclient.feature.movie.controller.MovieController
 import com.igorwojda.traktclient.feature.trendingmovielist.model.TrendingMovieListModel
 import kotlinx.android.synthetic.main.trending_movie_row_item.view.*
-import net.vrallev.android.cat.Cat
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
 
 /**
  * Created by Panel on 14.01.2017
  */
-class TrendingMovieListController : BaseController() {
+class TrendingMovieListController(args: Bundle? = null) : BaseController(args)  {
 
 	init {
 		title = "Trending Movies"
-	}
-
-	enum class DetailItemModel constructor(internal var title: String, internal var detail: String, internal var backgroundColor: Int) {
-		ONE("Item 1", "First item", 0x7986cb),
-		TWO("Item 2", "This is another item.", 0x4dd0e1),
-		THREE("Item 3", "Wow, a 3rd item!", 0x9575cd)
 	}
 
 	private lateinit var recyclerView: RecyclerView
@@ -58,10 +51,8 @@ class TrendingMovieListController : BaseController() {
 
 		detailContainer = view.findViewById(R.id.controller_trending_movie_list_detail_container) as ViewGroup?
 
-		Cat.d("twoPaneView $twoPaneView")
-		if (twoPaneView) {
+		if (twoPaneView)
 			onRowSelected(selectedIndex)
-		}
 
 		loadTrendingMovies()
 
@@ -96,13 +87,13 @@ class TrendingMovieListController : BaseController() {
 	}
 
 	internal fun onRowSelected(index: Int) {
-//		val trendingMovieAdapter = recyclerView.adapter as TrendingMovieAdapter
 		selectedIndex = index
 
-		val model = DetailItemModel.values()[index]
-		val controller = MovieController(model.detail)
+		val trendingMovieAdapter = recyclerView.adapter as TrendingMovieAdapter
+		val trendingMovie = trendingMovieAdapter.items[index]
+		val movieTraktId = trendingMovie?.movie?.ids?.trakt ?: return
 
-		Cat.d("twoPaneView2 $twoPaneView")
+		val controller = MovieController(movieTraktId)
 
 		if (twoPaneView) {
 			detailContainer?.let {
@@ -167,7 +158,6 @@ class TrendingMovieListController : BaseController() {
 							.load( it )
 							.into( itemView.trending_movie_row_item_image )
 				}
-
 
 //				localPosition = position
 
