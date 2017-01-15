@@ -33,7 +33,8 @@ class TrendingMovieListModel {
 		val ids = movie.ids ?: return trendingMovie
 		val imdb = ids.imdb ?: return trendingMovie
 
-		weMakeSitesAPI.movies().movie(imdb).subscribe { movie.image = it.image }
+		weMakeSitesAPI.movies().movie(imdb).subscribe (
+				{ movie.image = it.image }, {} )
 
 		return trendingMovie
 	}

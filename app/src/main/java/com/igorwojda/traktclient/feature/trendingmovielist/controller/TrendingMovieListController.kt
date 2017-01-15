@@ -1,19 +1,27 @@
 package com.igorwojda.traktclient.feature.trendingmovielist.controller
 
+import android.content.Context
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import com.bluelinelabs.conductor.RouterTransaction
 import com.bluelinelabs.conductor.changehandler.HorizontalChangeHandler
+import com.bumptech.glide.Glide
 import com.igorwojda.traktclient.R
+import com.igorwojda.traktclient.core.api.trakt.entities.Movie
+import com.igorwojda.traktclient.core.api.trakt.entities.TrendingMovie
+import com.igorwojda.traktclient.core.api.trakt.enums.Extended
 import com.igorwojda.traktclient.core.controllers.base.BaseController
 import com.igorwojda.traktclient.feature.movie.controller.MovieController
+import com.igorwojda.traktclient.feature.trendingmovielist.model.TrendingMovieListModel
+import kotlinx.android.synthetic.main.trending_movie_row_item.view.*
 import net.vrallev.android.cat.Cat
+import rx.android.schedulers.AndroidSchedulers
+import rx.schedulers.Schedulers
 
 /**
  * Created by Panel on 14.01.2017
@@ -32,6 +40,7 @@ class TrendingMovieListController : BaseController() {
 
 	private lateinit var recyclerView: RecyclerView
 	private var detailContainer: ViewGroup? = null
+	private val model = TrendingMovieListModel()
 
 	private var selectedIndex: Int = 0
 
@@ -42,19 +51,36 @@ class TrendingMovieListController : BaseController() {
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View {
 		val view = inflater.inflate(R.layout.controller_trending_movie_list, container, false)
 
-		recyclerView = view.findViewById(R.id.recycler_view) as RecyclerView
+		recyclerView = view.findViewById(R.id.controller_trending_movie_list_recycler_view) as RecyclerView
 		recyclerView.setHasFixedSize(true)
 		recyclerView.layoutManager = LinearLayoutManager(view.context)
-		recyclerView.adapter = TrendingMovieAdapter(LayoutInflater.from(view.context), DetailItemModel.values())
+		recyclerView.adapter = TrendingMovieAdapter(LayoutInflater.from(view.context), view.context)
 
-		detailContainer = view.findViewById(R.id.detail_container) as ViewGroup?
+		detailContainer = view.findViewById(R.id.controller_trending_movie_list_detail_container) as ViewGroup?
 
 		Cat.d("twoPaneView $twoPaneView")
 		if (twoPaneView) {
 			onRowSelected(selectedIndex)
 		}
 
+		loadTrendingMovies()
+
 		return view
+	}
+
+	private fun loadTrendingMovies() {
+		val movieModel = TrendingMovieListModel()
+		movieModel.trending(extended = Extended.FULL)
+				.subscribeOn(Schedulers.newThread())
+				.observeOn(AndroidSchedulers.mainThread())
+				.subscribe(
+						{
+							(recyclerView.adapter as TrendingMovieAdapter).items = it
+						},
+						{
+							Log.e("Error", it.message)
+						}
+				)
 	}
 
 	override fun onSaveInstanceState(outState: Bundle) {
@@ -89,10 +115,16 @@ class TrendingMovieListController : BaseController() {
 		}
 	}
 
-	internal inner class TrendingMovieAdapter(private val inflater: LayoutInflater, private var items: Array<DetailItemModel>) : RecyclerView.Adapter<TrendingMovieAdapter.ViewHolder>() {
+	internal inner class TrendingMovieAdapter(private val inflater: LayoutInflater, private val context:Context) : RecyclerView.Adapter<TrendingMovieAdapter.ViewHolder>() {
+
+		var items: List<TrendingMovie> = emptyList()
+		set(value) {
+			field = value
+			notifyDataSetChanged()
+		}
 
 		override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-			return ViewHolder(inflater.inflate(R.layout.row_detail_item, parent, false))
+			return ViewHolder(inflater.inflate(R.layout.trending_movie_row_item, parent, false))
 		}
 
 		override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -102,29 +134,48 @@ class TrendingMovieListController : BaseController() {
 		override fun getItemCount(): Int = items.size
 
 		internal inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
-			private var root: View = itemView.findViewById(R.id.row_root)
-			private var tvTitle = itemView.findViewById(R.id.tv_title) as TextView
+//			private var tvTitle = itemView.findViewById(R.id.title) as TextView
 
 			private var localPosition: Int = 0
 
 			init {
 
-				root.setOnClickListener {
+				itemView.setOnClickListener {
 					onRowSelected(localPosition)
 					notifyDataSetChanged()
 				}
 			}
 
-			fun bind(item: DetailItemModel, position: Int) {
-				tvTitle.text = item.title
-				localPosition = position
+			fun bind(trendingMovie: TrendingMovie, position: Int) {
+				val movie: Movie? = trendingMovie?.movie ?: return
 
-				if (twoPaneView && localPosition == selectedIndex) {
-					root.setBackgroundColor(0x78909C)
-				} else {
-					root.setBackgroundColor(ContextCompat.getColor(root.context, android.R.color.transparent))
+				movie?.title.let { itemView.trending_movie_row_item_title.text = it}
+
+				movie?.released?.year.let {
+					val releaseLabel = resources?.getText(R.string.release)
+					itemView.trending_movie_row_item_releaseDate.text = "$releaseLabel: $it"
 				}
+
+				trendingMovie.watchers?.let {
+					val watchLabel = resources?.getText(R.string.release)
+					itemView.trending_movie_row_item_watchers.text = "$watchLabel: $it"
+				}
+
+				movie?.image?.let {
+					Glide
+							.with( context )
+							.load( it )
+							.into( itemView.trending_movie_row_item_image )
+				}
+
+
+//				localPosition = position
+
+//				if (twoPaneView && localPosition == selectedIndex) {
+//					root.setBackgroundColor(0x78909C)
+//				} else {
+//					root.setBackgroundColor(ContextCompat.getColor(root.context, android.R.color.transparent))
+//				}
 			}
 		}
 	}
