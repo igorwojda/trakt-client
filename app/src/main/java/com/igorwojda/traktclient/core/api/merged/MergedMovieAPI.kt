@@ -38,11 +38,6 @@ class MergedMovieAPI {
 				.doOnNext { it.image = appendImageUrl(it) }
 	}
 
-	private fun appendImageUrl(trendingMovie: TrendingMovie): String? {
-		val movie = trendingMovie.movie ?: return null
-		return appendImageUrl(movie)
-	}
-
 	private fun appendImageUrl(movie: Movie): String? {
 		val ids = movie.ids ?: return null
 		val imdb = ids.imdb ?: return null

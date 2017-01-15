@@ -51,9 +51,6 @@ class TrendingMovieListController(args: Bundle? = null) : BaseController(args)  
 
 		detailContainer = view.findViewById(R.id.controller_trending_movie_list_detail_container) as ViewGroup?
 
-		if (twoPaneView)
-			onRowSelected(selectedIndex)
-
 		loadTrendingMovies()
 
 		return view
@@ -143,13 +140,14 @@ class TrendingMovieListController(args: Bundle? = null) : BaseController(args)  
 
 				movie?.title.let { itemView.trending_movie_row_item_title.text = it}
 
-				movie?.released?.year.let {
+				movie?.year?.let {
 					val releaseLabel = resources?.getText(R.string.release)
 					itemView.trending_movie_row_item_releaseDate.text = "$releaseLabel: $it"
+					Cat.d("-----$it")
 				}
 
 				trendingMovie.watchers?.let {
-					val watchLabel = resources?.getText(R.string.release)
+					val watchLabel = resources?.getText(R.string.watchers)
 					itemView.trending_movie_row_item_watchers.text = "$watchLabel: $it"
 				}
 

@@ -24,7 +24,6 @@
 			  android:layout_width="wrap_content"
 			  android:layout_height="wrap_content"
 			  android:layout_below="@+id/trending_movie_row_item_title"
-			  android:layout_marginBottom="5dp"
 			  android:layout_marginLeft="20dp"
 			  android:layout_marginStart="20dp"
 			  android:layout_toEndOf="@+id/trending_movie_row_item_image"
