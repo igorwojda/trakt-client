@@ -18,6 +18,7 @@ import com.igorwojda.traktclient.core.controllers.base.BaseController
 import com.igorwojda.traktclient.feature.movie.controller.MovieController
 import com.igorwojda.traktclient.feature.trendingmovielist.model.TrendingMovieListModel
 import kotlinx.android.synthetic.main.trending_movie_row_item.view.*
+import net.vrallev.android.cat.Cat
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
 
@@ -91,6 +92,8 @@ class TrendingMovieListController(args: Bundle? = null) : BaseController(args)  
 		val trendingMovie = trendingMovieAdapter.items[index]
 		val movieTraktId = trendingMovie.movie?.ids?.trakt ?: return
 
+		Cat.d("index: $index Open Title: ${trendingMovie.movie?.title}, traktId: $movieTraktId")
+
 		val controller = MovieController(movieTraktId)
 
 		if (twoPaneView) {
@@ -117,7 +120,7 @@ class TrendingMovieListController(args: Bundle? = null) : BaseController(args)  
 		}
 
 		override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-			holder.bind(items[position])
+			holder.bind(items[position], position)
 		}
 
 		override fun getItemCount(): Int = items.size
@@ -133,7 +136,9 @@ class TrendingMovieListController(args: Bundle? = null) : BaseController(args)  
 				}
 			}
 
-			fun bind(trendingMovie: TrendingMovie) {
+			fun bind(trendingMovie: TrendingMovie, position:Int) {
+				localPosition = position
+
 				val movie: Movie? = trendingMovie.movie ?: return
 
 				movie?.title.let { itemView.trending_movie_row_item_title.text = it}

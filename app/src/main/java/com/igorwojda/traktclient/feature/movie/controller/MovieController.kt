@@ -12,6 +12,7 @@ import com.igorwojda.traktclient.core.controllers.base.BaseController
 import com.igorwojda.traktclient.core.extension.Bundle
 import com.igorwojda.traktclient.feature.movie.model.MovieModel
 import kotlinx.android.synthetic.main.controller_movie.view.*
+import net.vrallev.android.cat.Cat
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
 
@@ -36,12 +37,16 @@ class MovieController(args: Bundle) : BaseController(args) {
 		val view = inflater.inflate(R.layout.controller_movie, container, false)
 
 		var movieTraktId = args.getString(KEY_MOVIE_TRAKT_ID)
+		Cat.d("Loading movieTraktId $movieTraktId")
+
 		model.summary(movieTraktId)
 				.subscribeOn(Schedulers.newThread())
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribe(
 						{
 							updateView(it)
+							Cat.d("Loaded: ${it?.title}, traktId: $movieTraktId")
+
 						},
 						{
 							Log.e("Error", it.message)
