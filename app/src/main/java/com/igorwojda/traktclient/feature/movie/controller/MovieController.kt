@@ -12,7 +12,6 @@ import com.igorwojda.traktclient.core.controllers.base.BaseController
 import com.igorwojda.traktclient.core.extension.Bundle
 import com.igorwojda.traktclient.feature.movie.model.MovieModel
 import kotlinx.android.synthetic.main.controller_movie.view.*
-import net.vrallev.android.cat.Cat
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
 
@@ -30,22 +29,20 @@ class MovieController(args: Bundle) : BaseController(args) {
 	})
 
 	companion object {
-		private val KEY_MOVIE_TRAKT_ID = "MovieController.KEY_MOVIE_TRAKT_ID"
+		private val KEY_MOVIE_TRAKT_ID = "MovieController.MOVIE_TRAKT_ID"
 	}
 
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View {
 		val view = inflater.inflate(R.layout.controller_movie, container, false)
 
-		var movieTraktId = args.getString(KEY_MOVIE_TRAKT_ID)
-		Cat.d("Loading movieTraktId $movieTraktId")
+		val movieTraktId = args.getString(KEY_MOVIE_TRAKT_ID)
 
-		model.summary(movieTraktId)
+		val subscription = model.summary(movieTraktId)
 				.subscribeOn(Schedulers.newThread())
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribe(
 						{
 							updateView(it)
-							Cat.d("Loaded: ${it?.title}, traktId: $movieTraktId")
 
 						},
 						{
@@ -53,11 +50,13 @@ class MovieController(args: Bundle) : BaseController(args) {
 						}
 				)
 
+		compositeSubscription.add(subscription)
+
 		return view
 	}
 
 	private fun updateView(movie: Movie) {
-		var localView = view ?: return
+		val localView = view ?: return
 
 		movie.image?.let {
 			Glide
@@ -68,8 +67,10 @@ class MovieController(args: Bundle) : BaseController(args) {
 
 		movie.title?.let { title = it}
 
-		val genresLabel = resources?.getText(R.string.genres)
-		movie.genres?.let { localView.controller_movie_genres.text = "$genresLabel: ${it.joinToString( separator = " | ")}"}
+		movie.genres?.let {
+			val genres = it.joinToString (separator = " | ")
+			localView.controller_movie_genres.text = resources?.getString(R.string.genres, genres)
+		}
 		movie.rating?.let { localView.controller_movie_ratingBar.rating = it.toFloat() }
 	}
 }

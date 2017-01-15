@@ -18,7 +18,7 @@ import com.igorwojda.traktclient.core.controllers.base.BaseController
 import com.igorwojda.traktclient.feature.movie.controller.MovieController
 import com.igorwojda.traktclient.feature.trendingmovielist.model.TrendingMovieListModel
 import kotlinx.android.synthetic.main.trending_movie_row_item.view.*
-import net.vrallev.android.cat.Cat
+import rx.Observable
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
 
@@ -27,11 +27,16 @@ import rx.schedulers.Schedulers
  */
 class TrendingMovieListController(args: Bundle? = null) : BaseController(args)  {
 
+	companion object {
+		private val KEY_SELECTED_INDEX = "TrendingMovieListController.SELECTED_INDEX"
+	}
+
 	init {
 		title = "Trending Movies"
 	}
 
 	private lateinit var recyclerView: RecyclerView
+	private lateinit var dataRequest: Observable<List<TrendingMovie>>
 	private var detailContainer: ViewGroup? = null
 	private val model = TrendingMovieListModel()
 
@@ -57,7 +62,7 @@ class TrendingMovieListController(args: Bundle? = null) : BaseController(args)  
 	}
 
 	private fun loadTrendingMovies() {
-		model.trending()
+		val subscription = model.trending()
 				.subscribeOn(Schedulers.newThread())
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribe(
@@ -68,6 +73,8 @@ class TrendingMovieListController(args: Bundle? = null) : BaseController(args)  
 							Log.e("Error", it.message)
 						}
 				)
+
+		compositeSubscription.add(subscription)
 	}
 
 	override fun onSaveInstanceState(outState: Bundle) {
@@ -88,8 +95,6 @@ class TrendingMovieListController(args: Bundle? = null) : BaseController(args)  
 		val trendingMovieAdapter = recyclerView.adapter as TrendingMovieAdapter
 		val trendingMovie = trendingMovieAdapter.items[index]
 		val movieTraktId = trendingMovie.movie?.ids?.trakt ?: return
-
-		Cat.d("index: $index Open Title: ${trendingMovie.movie?.title}, traktId: $movieTraktId")
 
 		val controller = MovieController(movieTraktId)
 
@@ -141,14 +146,11 @@ class TrendingMovieListController(args: Bundle? = null) : BaseController(args)  
 				movie?.title.let { itemView.trending_movie_row_item_title.text = it}
 
 				movie?.year?.let {
-					val releaseLabel = resources?.getText(R.string.release)
-					itemView.trending_movie_row_item_releaseDate.text = "$releaseLabel: $it"
-					Cat.d("-----$it")
+					itemView.trending_movie_row_item_releaseDate.text = resources?.getString(R.string.release, it)
 				}
 
 				trendingMovie.watchers?.let {
-					val watchLabel = resources?.getText(R.string.watchers)
-					itemView.trending_movie_row_item_watchers.text = "$watchLabel: $it"
+					itemView.trending_movie_row_item_watchers.text = resources?.getString(R.string.watchers, it)
 				}
 
 				movie?.image?.let {
@@ -157,21 +159,7 @@ class TrendingMovieListController(args: Bundle? = null) : BaseController(args)  
 							.load( it )
 							.into( itemView.trending_movie_row_item_image )
 				}
-
-//				localPosition = position
-
-//				if (twoPaneView && localPosition == selectedIndex) {
-//					root.setBackgroundColor(0x78909C)
-//				} else {
-//					root.setBackgroundColor(ContextCompat.getColor(root.context, android.R.color.transparent))
-//				}
 			}
 		}
 	}
-
-	companion object {
-
-		private val KEY_SELECTED_INDEX = "MasterDetailListController.selectedIndex"
-	}
-
 }

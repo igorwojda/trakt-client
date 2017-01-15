@@ -6,9 +6,7 @@ import com.bluelinelabs.conductor.ControllerChangeHandler
 import com.bluelinelabs.conductor.ControllerChangeType
 import com.igorwojda.traktclient.TraktClientApplication
 
-abstract class RefWatchingController : Controller {
-
-	protected constructor(args: Bundle?) : super(args)
+abstract class RefWatchingController protected constructor(args: Bundle?) : Controller(args) {
 
 	private var hasExited: Boolean = false
 

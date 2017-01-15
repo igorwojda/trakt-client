@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">TraktClient</string>
     <string name="unknown_title">Unknown title</string>
-    <string name="release">Release</string>
-    <string name="watchers">Watchers</string>
-    <string name="genres">Genres</string>
+    <string name="release">Release: %1$d</string>
+    <string name="watchers">Watchers: %1$d</string>
+    <string name="genres">Genres: %1$s</string>
 </resources>

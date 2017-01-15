@@ -6,9 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import kotlin.properties.Delegates
 
-abstract class BaseController : RefWatchingController {
-
-	protected constructor(args: Bundle?) : super(args)
+abstract class BaseController protected constructor(args: Bundle?) : RxController(args) {
 
 	protected val actionBar: ActionBar?
 		get() = (router?.activity as AppCompatActivity?)?.supportActionBar

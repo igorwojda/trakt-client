@@ -12,8 +12,8 @@ import rx.schedulers.Schedulers
  */
 class MergedMovieAPI {
 
-	protected var trakAPI = TraktClientApplication.trakAPI
-	protected val weMakeSitesAPI = TraktClientApplication.weMakeSitesAPI
+	private var trakAPI = TraktClientApplication.trakAPI
+	private val weMakeSitesAPI = TraktClientApplication.weMakeSitesAPI
 
 	fun trending(page: Int? = null,
 				 limit: Int? = null,
