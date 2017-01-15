@@ -1,7 +1,7 @@
 package com.igorwojda.traktclient.feature.trendingmovielist.model
 
-import com.igorwojda.traktclient.core.api.trakt.enums.Extended
 import com.igorwojda.traktclient.core.api.merged.MergedMovieAPI
+import com.igorwojda.traktclient.core.api.trakt.enums.Extended
 
 /**
  * Created by Panel on 14.01.2017

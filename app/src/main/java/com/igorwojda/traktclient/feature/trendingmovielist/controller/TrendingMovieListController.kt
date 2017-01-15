@@ -68,6 +68,9 @@ class TrendingMovieListController(args: Bundle? = null) : BaseController(args)  
 				.subscribe(
 						{
 							(recyclerView.adapter as TrendingMovieAdapter).items = it
+
+							if(twoPaneView)
+								onRowSelected(selectedIndex)
 						},
 						{
 							Log.e("Error", it.message)
