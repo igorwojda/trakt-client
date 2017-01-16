@@ -146,7 +146,7 @@ class TrendingMovieListController(args: Bundle? = null) : BaseController(args) {
 
 				movie?.title.let { itemView.trending_movie_row_item_title.text = it }
 
-				movie?.year?.let {
+				movie?.released?.let {
 					itemView.trending_movie_row_item_releaseDate.text = resources?.getString(R.string.release, it)
 				}
 
