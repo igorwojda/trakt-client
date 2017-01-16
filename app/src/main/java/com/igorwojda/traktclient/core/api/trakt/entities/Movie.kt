@@ -17,5 +17,5 @@ class Movie {
 	var homepage: String? = null
 	var language: String? = null
 	var genres: List<String>? = null
-	var image: String? = null
+	var imageUrl: String? = null
 }

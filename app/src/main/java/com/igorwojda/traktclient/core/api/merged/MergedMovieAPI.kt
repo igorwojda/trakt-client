@@ -4,7 +4,6 @@ import com.igorwojda.traktclient.TraktClientApplication
 import com.igorwojda.traktclient.core.api.trakt.entities.Movie
 import com.igorwojda.traktclient.core.api.trakt.entities.TrendingMovie
 import com.igorwojda.traktclient.core.api.trakt.enums.Extended
-import net.vrallev.android.cat.Cat
 import rx.Observable
 import rx.schedulers.Schedulers
 
@@ -25,7 +24,7 @@ class MergedMovieAPI {
 								.subscribeOn(Schedulers.newThread())
 								.doOnNext {
 									it.movie?.let {
-										it.image = getImageUrl(it)
+										it.imageUrl = getImageUrl(it)
 									}
 								}
 								.doOnNext { diskCache.save(it) }
@@ -40,7 +39,7 @@ class MergedMovieAPI {
 	fun movie(traktId: String): Observable<Movie> {
 		val network = trakAPI.movies().summary(traktId, Extended.FULL)
 				.doOnNext {
-					it.image = getImageUrl(it)
+					it.imageUrl = getImageUrl(it)
 					diskCache.save(it)
 				}.subscribeOn(Schedulers.newThread())
 
@@ -60,7 +59,7 @@ class MergedMovieAPI {
 		var url: String? = null
 
 		weMakeSitesAPI.movies().movie(imdb).subscribe(
-				{ url = it.image }, { Cat.e(it) })
+				{ url = it.image })
 
 		return url
 	}

@@ -16,7 +16,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.igorwojda.traktclient.R
 import com.igorwojda.traktclient.core.api.trakt.entities.Movie
 import com.igorwojda.traktclient.core.api.trakt.entities.TrendingMovie
-import com.igorwojda.traktclient.core.controllers.base.BaseController
+import com.igorwojda.traktclient.core.controller.base.BaseController
 import com.igorwojda.traktclient.feature.movie.controller.MovieController
 import com.igorwojda.traktclient.feature.trendingmovielist.model.TrendingMovieListModel
 import kotlinx.android.synthetic.main.trending_movie_row_item.view.*
@@ -163,7 +163,7 @@ class TrendingMovieListController(args: Bundle? = null) : BaseController(args) {
 					itemView.trending_movie_row_item_watchers.text = resources?.getString(R.string.watchers, it)
 				}
 
-				movie?.image?.let {
+				movie?.imageUrl?.let {
 					Glide
 							.with(context)
 							.load(it)

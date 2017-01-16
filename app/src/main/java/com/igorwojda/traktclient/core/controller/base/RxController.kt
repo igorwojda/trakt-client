@@ -1,4 +1,4 @@
-package com.igorwojda.traktclient.core.controllers.base
+package com.igorwojda.traktclient.core.controller.base
 
 import android.os.Bundle
 import rx.subscriptions.CompositeSubscription
