@@ -26,7 +26,7 @@ class MergedMovieAPI {
 								.subscribeOn(Schedulers.newThread())
 								.doOnNext {
 									it.movie?.let {
-										it.image = appendImageUrl(it)
+										it.image = getImageUrl(it)
 									}
 								}
 								.doOnNext { diskCache.save(it) }
@@ -47,7 +47,7 @@ class MergedMovieAPI {
 								.subscribeOn(Schedulers.newThread())
 								.doOnNext {
 									it.movie?.let {
-										it.image = appendImageUrl(it)
+										it.image = getImageUrl(it)
 									}
 								}
 								.doOnNext { diskCache.save(it) }
@@ -62,7 +62,7 @@ class MergedMovieAPI {
 	fun movie(traktId: String): Observable<Movie> {
 		val network = trakAPI.movies().summary(traktId, Extended.FULL)
 				.doOnNext {
-					it.image = appendImageUrl(it)
+					it.image = getImageUrl(it)
 					diskCache.save(it)
 				}.subscribeOn(Schedulers.newThread())
 
@@ -75,15 +75,15 @@ class MergedMovieAPI {
 		return disk.onErrorResumeNext { network }
 	}
 
-	private fun appendImageUrl(movie: Movie): String? {
+	private fun getImageUrl(movie: Movie): String? {
 		val ids = movie.ids ?: return null
 		val imdb = ids.imdb ?: return null
 
-		var result: String? = null
+		var url: String? = null
 
 		weMakeSitesAPI.movies().movie(imdb).subscribe(
-				{ result = it.image }, { Cat.e(it) })
+				{ url = it.image }, { Cat.e(it) })
 
-		return result
+		return url
 	}
 }

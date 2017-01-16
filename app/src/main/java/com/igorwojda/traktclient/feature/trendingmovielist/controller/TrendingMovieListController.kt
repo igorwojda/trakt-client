@@ -11,7 +11,6 @@ import android.view.ViewGroup
 import com.bluelinelabs.conductor.RouterTransaction
 import com.bluelinelabs.conductor.changehandler.HorizontalChangeHandler
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.igorwojda.traktclient.R
 import com.igorwojda.traktclient.core.api.trakt.entities.Movie
 import com.igorwojda.traktclient.core.api.trakt.entities.TrendingMovie
@@ -159,7 +158,6 @@ class TrendingMovieListController(args: Bundle? = null) : BaseController(args) {
 					Glide
 							.with(context)
 							.load(it)
-							.diskCacheStrategy(DiskCacheStrategy.ALL)
 							.into(itemView.trending_movie_row_item_image)
 				}
 			}

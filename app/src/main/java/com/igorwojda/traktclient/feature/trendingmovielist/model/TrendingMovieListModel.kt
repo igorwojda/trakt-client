@@ -9,5 +9,6 @@ import com.igorwojda.traktclient.core.api.merged.MergedMovieAPI
 class TrendingMovieListModel {
 	val model = MergedMovieAPI()
 
-	fun trending() = model.trending()
+	//No refresh for now
+	fun trending() = model.trending().cache()
 }
