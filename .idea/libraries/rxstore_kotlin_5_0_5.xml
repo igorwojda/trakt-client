@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="rxstore-kotlin-5.0.5">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/au.com.gridstone.rxstore/rxstore-kotlin/5.0.5/99920a72d5f880177bd496d03b652f4266352101/rxstore-kotlin-5.0.5.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/au.com.gridstone.rxstore/rxstore-kotlin/5.0.5/1dddfb9cb2b362d710c6001a011c974a1110faa4/rxstore-kotlin-5.0.5-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

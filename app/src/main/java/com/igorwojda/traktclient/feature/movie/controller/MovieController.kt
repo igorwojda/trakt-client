@@ -1,7 +1,6 @@
 package com.igorwojda.traktclient.feature.movie.controller
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +11,7 @@ import com.igorwojda.traktclient.core.controllers.base.BaseController
 import com.igorwojda.traktclient.core.extension.Bundle
 import com.igorwojda.traktclient.feature.movie.model.MovieModel
 import kotlinx.android.synthetic.main.controller_movie.view.*
+import net.vrallev.android.cat.Cat
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
 
@@ -37,16 +37,17 @@ class MovieController(args: Bundle) : BaseController(args) {
 
 		val movieTraktId = args.getString(KEY_MOVIE_TRAKT_ID)
 
-		val subscription = model.summary(movieTraktId)
+		val subscription = model.movie(movieTraktId)
 				.subscribeOn(Schedulers.newThread())
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribe(
 						{
 							updateView(it)
+							Cat.d("MovieController $it")
 
 						},
 						{
-							Log.e("Error", it.message)
+							Cat.e("MovieController ${it.message}")
 						}
 				)
 

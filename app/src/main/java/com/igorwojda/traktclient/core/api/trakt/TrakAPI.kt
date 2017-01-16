@@ -1,17 +1,18 @@
 package com.igorwojda.traktclient.core.api.trakt
 
-import com.igorwojda.traktclient.core.api.trakt.services.Movies
 import com.igorwojda.traktclient.core.api.trakt.entities.AccessToken
 import com.igorwojda.traktclient.core.api.trakt.retrofit.TraktAuthenticator
 import com.igorwojda.traktclient.core.api.trakt.retrofit.TraktGsonHelper
-import com.igorwojda.traktclient.core.api.trakt.services.Authentication
 import com.igorwojda.traktclient.core.api.trakt.retrofit.TraktRequestInterceptor
+import com.igorwojda.traktclient.core.api.trakt.services.Authentication
+import com.igorwojda.traktclient.core.api.trakt.services.Movies
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 
 /**
  * Created by Panel on 13.01.2017
@@ -36,6 +37,7 @@ class TrakAPI(val apiKey: String, private val clientSecret: String) {
 				.addNetworkInterceptor(TraktRequestInterceptor(this))
 				.authenticator(TraktAuthenticator(this))
 				.addInterceptor(logging)
+				.connectTimeout(3, TimeUnit.SECONDS)
 				.build()
 	}
 

@@ -16,12 +16,12 @@ interface Movies {
 	fun trending(
 			@Query("page") page: Int? = null,
 			@Query("limit") limit: Int? = null,
-			@Query(value = "extended", encoded = true) extended: Extended? = Extended.FULL
+			@Query(value = "extended") extended: Extended? = null
 	): Observable<List<TrendingMovie>>
 
 	@GET("movies/{id}")
 	fun summary(
 			@Path("id") movieId: String,
-			@Query(value = "extended", encoded = true) extended: Extended? = Extended.FULL
+			@Query(value = "extended") extended: Extended? = null
 	): Observable<Movie>
 }

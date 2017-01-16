@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import com.bluelinelabs.conductor.RouterTransaction
 import com.bluelinelabs.conductor.changehandler.HorizontalChangeHandler
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.igorwojda.traktclient.R
 import com.igorwojda.traktclient.core.api.trakt.entities.Movie
 import com.igorwojda.traktclient.core.api.trakt.entities.TrendingMovie
@@ -18,14 +19,13 @@ import com.igorwojda.traktclient.core.controllers.base.BaseController
 import com.igorwojda.traktclient.feature.movie.controller.MovieController
 import com.igorwojda.traktclient.feature.trendingmovielist.model.TrendingMovieListModel
 import kotlinx.android.synthetic.main.trending_movie_row_item.view.*
-import rx.Observable
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
 
 /**
  * Created by Panel on 14.01.2017
  */
-class TrendingMovieListController(args: Bundle? = null) : BaseController(args)  {
+class TrendingMovieListController(args: Bundle? = null) : BaseController(args) {
 
 	companion object {
 		private val KEY_SELECTED_INDEX = "TrendingMovieListController.SELECTED_INDEX"
@@ -36,13 +36,12 @@ class TrendingMovieListController(args: Bundle? = null) : BaseController(args)  
 	}
 
 	private lateinit var recyclerView: RecyclerView
-	private lateinit var dataRequest: Observable<List<TrendingMovie>>
 	private var detailContainer: ViewGroup? = null
 	private val model = TrendingMovieListModel()
 
 	private var selectedIndex: Int = 0
 
-	private val twoPaneView:Boolean
+	private val twoPaneView: Boolean
 		get() = detailContainer != null
 
 
@@ -69,7 +68,7 @@ class TrendingMovieListController(args: Bundle? = null) : BaseController(args)  
 						{
 							(recyclerView.adapter as TrendingMovieAdapter).items = it
 
-							if(twoPaneView)
+							if (twoPaneView)
 								onRowSelected(selectedIndex)
 						},
 						{
@@ -112,13 +111,13 @@ class TrendingMovieListController(args: Bundle? = null) : BaseController(args)  
 		}
 	}
 
-	internal inner class TrendingMovieAdapter(private val inflater: LayoutInflater, private val context:Context) : RecyclerView.Adapter<TrendingMovieAdapter.ViewHolder>() {
+	internal inner class TrendingMovieAdapter(private val inflater: LayoutInflater, private val context: Context) : RecyclerView.Adapter<TrendingMovieAdapter.ViewHolder>() {
 
 		var items: List<TrendingMovie> = emptyList()
-		set(value) {
-			field = value
-			notifyDataSetChanged()
-		}
+			set(value) {
+				field = value
+				notifyDataSetChanged()
+			}
 
 		override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 			return ViewHolder(inflater.inflate(R.layout.trending_movie_row_item, parent, false))
@@ -141,12 +140,12 @@ class TrendingMovieListController(args: Bundle? = null) : BaseController(args)  
 				}
 			}
 
-			fun bind(trendingMovie: TrendingMovie, position:Int) {
+			fun bind(trendingMovie: TrendingMovie, position: Int) {
 				localPosition = position
 
 				val movie: Movie? = trendingMovie.movie ?: return
 
-				movie?.title.let { itemView.trending_movie_row_item_title.text = it}
+				movie?.title.let { itemView.trending_movie_row_item_title.text = it }
 
 				movie?.year?.let {
 					itemView.trending_movie_row_item_releaseDate.text = resources?.getString(R.string.release, it)
@@ -158,9 +157,10 @@ class TrendingMovieListController(args: Bundle? = null) : BaseController(args)  
 
 				movie?.image?.let {
 					Glide
-							.with( context )
-							.load( it )
-							.into( itemView.trending_movie_row_item_image )
+							.with(context)
+							.load(it)
+							.diskCacheStrategy(DiskCacheStrategy.ALL)
+							.into(itemView.trending_movie_row_item_image)
 				}
 			}
 		}

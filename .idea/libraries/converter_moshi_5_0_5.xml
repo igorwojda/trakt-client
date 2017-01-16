@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="converter-moshi-5.0.5">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/au.com.gridstone.rxstore/converter-moshi/5.0.5/136cd1d8ee9c05eec77e50a310d1cf442b1ec4d2/converter-moshi-5.0.5.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/au.com.gridstone.rxstore/converter-moshi/5.0.5/bfb281e44aae6c6f3ad7ee54bf9f4cbfcc6405a5/converter-moshi-5.0.5-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

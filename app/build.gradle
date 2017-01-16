@@ -55,6 +55,11 @@ dependencies {
     compile 'io.reactivex:rxandroid:1.2.1'
     compile 'io.reactivex:rxkotlin:0.60.0'
 
+    //RxStore
+    compile 'au.com.gridstone.rxstore:rxstore:5.0.5'
+    compile 'au.com.gridstone.rxstore:rxstore-kotlin:5.0.5'
+    compile 'au.com.gridstone.rxstore:converter-moshi:5.0.5'
+
     //Other
     compile 'joda-time:joda-time:2.9.7'
     compile 'com.bluelinelabs:conductor:2.0.5'

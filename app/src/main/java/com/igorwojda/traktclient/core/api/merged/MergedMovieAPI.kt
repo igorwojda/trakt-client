@@ -4,6 +4,7 @@ import com.igorwojda.traktclient.TraktClientApplication
 import com.igorwojda.traktclient.core.api.trakt.entities.Movie
 import com.igorwojda.traktclient.core.api.trakt.entities.TrendingMovie
 import com.igorwojda.traktclient.core.api.trakt.enums.Extended
+import net.vrallev.android.cat.Cat
 import rx.Observable
 import rx.schedulers.Schedulers
 
@@ -14,11 +15,11 @@ class MergedMovieAPI {
 
 	private var trakAPI = TraktClientApplication.trakAPI
 	private val weMakeSitesAPI = TraktClientApplication.weMakeSitesAPI
+	private val diskCache = TraktClientApplication.diskCache
 
-	fun trending(page: Int? = null,
-				 limit: Int? = null,
-				 extended: Extended? = Extended.FULL): Observable<List<TrendingMovie>> {
-		return trakAPI.movies().trending(page, limit, extended)
+	fun trending(): Observable<List<TrendingMovie>> {
+
+		trakAPI.movies().trending(extended = Extended.FULL)
 				.flatMap {
 					Observable.from(it).flatMap {
 						Observable.just(it)
@@ -28,24 +29,60 @@ class MergedMovieAPI {
 										it.image = appendImageUrl(it)
 									}
 								}
+								.doOnNext { diskCache.save(it) }
+					}.toList()
+				}.subscribe(
+				{
+					Cat.d("trending $it")
+
+				},
+				{
+					Cat.e("trending ${it.message}")
+				})
+
+		val network = trakAPI.movies().trending(extended = Extended.FULL)
+				.flatMap {
+					Observable.from(it).flatMap {
+						Observable.just(it)
+								.subscribeOn(Schedulers.newThread())
+								.doOnNext {
+									it.movie?.let {
+										it.image = appendImageUrl(it)
+									}
+								}
+								.doOnNext { diskCache.save(it) }
 					}.toList()
 				}
+
+		val disk = diskCache.getTrendingMovies()
+
+		return network.onErrorResumeNext { disk }
 	}
 
-	fun summary(traktId: String,
-				extended: Extended? = Extended.FULL): Observable<Movie> {
-		return trakAPI.movies().summary(traktId, extended)
-				.doOnNext { it.image = appendImageUrl(it) }
+	fun movie(traktId: String): Observable<Movie> {
+		val network = trakAPI.movies().summary(traktId, Extended.FULL)
+				.doOnNext {
+					it.image = appendImageUrl(it)
+					diskCache.save(it)
+				}.subscribeOn(Schedulers.newThread())
+
+		val disk = diskCache.getMovies()
+				.flatMap {
+					Observable.from(it)
+							.first { it?.ids?.trakt == traktId }
+				}
+
+		return disk.onErrorResumeNext { network }
 	}
 
 	private fun appendImageUrl(movie: Movie): String? {
 		val ids = movie.ids ?: return null
 		val imdb = ids.imdb ?: return null
 
-		var result:String? = null
+		var result: String? = null
 
 		weMakeSitesAPI.movies().movie(imdb).subscribe(
-				{ result = it.image }, {})
+				{ result = it.image }, { Cat.e(it) })
 
 		return result
 	}

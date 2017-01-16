@@ -1,6 +1,5 @@
 package com.igorwojda.traktclient.feature.movie.model
 
-import com.igorwojda.traktclient.core.api.trakt.enums.Extended
 import com.igorwojda.traktclient.core.api.merged.MergedMovieAPI
 
 /**
@@ -8,8 +7,7 @@ import com.igorwojda.traktclient.core.api.merged.MergedMovieAPI
  */
 
 class MovieModel {
-	val baseMovieModel = MergedMovieAPI()
+	val model = MergedMovieAPI()
 
-	fun summary(traktId: String,
-				extended: Extended? = Extended.FULL) = baseMovieModel.summary(traktId, extended)
+	fun movie(traktId: String) = model.movie(traktId)
 }
