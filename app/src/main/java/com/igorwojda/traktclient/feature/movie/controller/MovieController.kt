@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -25,6 +26,7 @@ class MovieController(args: Bundle) : BaseController(args) {
 
 	private val model = MovieModel()
 	private lateinit var error: TextView
+	private lateinit var progressBar: ProgressBar
 
 	constructor(movieTraktId: String) : this(Bundle {
 		putString(KEY_MOVIE_TRAKT_ID, movieTraktId)
@@ -39,10 +41,12 @@ class MovieController(args: Bundle) : BaseController(args) {
 
 		val view = inflater.inflate(R.layout.controller_movie, container, false)
 		error = view.findViewById(R.id.controller_movie_image_error) as TextView
+		progressBar = view.findViewById(R.id.controller_movie_image_progressBar) as ProgressBar
 
 		val subscription = model.movie(movieTraktId)
 				.subscribeOn(Schedulers.newThread())
 				.observeOn(AndroidSchedulers.mainThread())
+				.doOnEach { progressBar.visibility = View.GONE }
 				.subscribe(
 						{
 							updateView(it)

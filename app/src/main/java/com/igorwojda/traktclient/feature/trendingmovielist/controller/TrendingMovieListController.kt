@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.TextView
 import com.bluelinelabs.conductor.RouterTransaction
 import com.bluelinelabs.conductor.changehandler.HorizontalChangeHandler
@@ -37,6 +38,7 @@ class TrendingMovieListController(args: Bundle? = null) : BaseController(args) {
 
 	private lateinit var recyclerView: RecyclerView
 	private lateinit var error: TextView
+	private lateinit var progressBar: ProgressBar
 	private var detailContainer: ViewGroup? = null
 	private val model = TrendingMovieListModel()
 
@@ -55,6 +57,7 @@ class TrendingMovieListController(args: Bundle? = null) : BaseController(args) {
 		recyclerView.adapter = TrendingMovieAdapter(LayoutInflater.from(view.context), view.context)
 
 		error = view.findViewById(R.id.controller_trending_movie_list_error) as TextView
+		progressBar = view.findViewById(R.id.controller_trending_movie_list_progressBar) as ProgressBar
 
 		detailContainer = view.findViewById(R.id.controller_trending_movie_list_detail_container) as ViewGroup?
 
@@ -67,6 +70,7 @@ class TrendingMovieListController(args: Bundle? = null) : BaseController(args) {
 		val subscription = model.trending()
 				.subscribeOn(Schedulers.newThread())
 				.observeOn(AndroidSchedulers.mainThread())
+				.doOnEach { progressBar.visibility = View.GONE }
 				.subscribe(
 						{
 							(recyclerView.adapter as TrendingMovieAdapter).items = it
