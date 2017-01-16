@@ -4,4 +4,5 @@
     <string name="release">Release: %1$s</string>
     <string name="watchers">Watchers: %1$d</string>
     <string name="genres">Genres: %1$s</string>
+    <string name="dataLoadingError">Data loading error</string>
 </resources>

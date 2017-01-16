@@ -4,10 +4,10 @@ import android.content.Context
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import com.bluelinelabs.conductor.RouterTransaction
 import com.bluelinelabs.conductor.changehandler.HorizontalChangeHandler
 import com.bumptech.glide.Glide
@@ -36,6 +36,7 @@ class TrendingMovieListController(args: Bundle? = null) : BaseController(args) {
 	}
 
 	private lateinit var recyclerView: RecyclerView
+	private lateinit var error: TextView
 	private var detailContainer: ViewGroup? = null
 	private val model = TrendingMovieListModel()
 
@@ -52,6 +53,8 @@ class TrendingMovieListController(args: Bundle? = null) : BaseController(args) {
 		recyclerView.setHasFixedSize(true)
 		recyclerView.layoutManager = LinearLayoutManager(view.context)
 		recyclerView.adapter = TrendingMovieAdapter(LayoutInflater.from(view.context), view.context)
+
+		error = view.findViewById(R.id.controller_trending_movie_list_error) as TextView
 
 		detailContainer = view.findViewById(R.id.controller_trending_movie_list_detail_container) as ViewGroup?
 
@@ -72,7 +75,8 @@ class TrendingMovieListController(args: Bundle? = null) : BaseController(args) {
 								onRowSelected(selectedIndex)
 						},
 						{
-							Log.e("Error", it.message)
+							error.text = it.message
+							error.visibility = View.VISIBLE
 						}
 				)
 

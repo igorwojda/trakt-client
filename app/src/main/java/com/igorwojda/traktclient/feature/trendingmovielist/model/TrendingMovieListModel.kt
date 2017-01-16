@@ -10,5 +10,5 @@ class TrendingMovieListModel {
 	val model = MergedMovieAPI()
 
 	//No refresh for now
-	fun trending() = model.trending().cache()
+	fun trending() = model.trending()
 }

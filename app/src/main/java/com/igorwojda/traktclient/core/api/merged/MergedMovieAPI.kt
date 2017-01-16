@@ -18,28 +18,6 @@ class MergedMovieAPI {
 	private val diskCache = TraktClientApplication.diskCache
 
 	fun trending(): Observable<List<TrendingMovie>> {
-
-		trakAPI.movies().trending(extended = Extended.FULL)
-				.flatMap {
-					Observable.from(it).flatMap {
-						Observable.just(it)
-								.subscribeOn(Schedulers.newThread())
-								.doOnNext {
-									it.movie?.let {
-										it.image = getImageUrl(it)
-									}
-								}
-								.doOnNext { diskCache.save(it) }
-					}.toList()
-				}.subscribe(
-				{
-					Cat.d("trending $it")
-
-				},
-				{
-					Cat.e("trending ${it.message}")
-				})
-
 		val network = trakAPI.movies().trending(extended = Extended.FULL)
 				.flatMap {
 					Observable.from(it).flatMap {

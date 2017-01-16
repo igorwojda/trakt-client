@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.igorwojda.traktclient.R
@@ -12,7 +13,6 @@ import com.igorwojda.traktclient.core.controllers.base.BaseController
 import com.igorwojda.traktclient.core.extension.Bundle
 import com.igorwojda.traktclient.feature.movie.model.MovieModel
 import kotlinx.android.synthetic.main.controller_movie.view.*
-import net.vrallev.android.cat.Cat
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
 
@@ -24,6 +24,7 @@ import rx.schedulers.Schedulers
 class MovieController(args: Bundle) : BaseController(args) {
 
 	private val model = MovieModel()
+	private lateinit var error: TextView
 
 	constructor(movieTraktId: String) : this(Bundle {
 		putString(KEY_MOVIE_TRAKT_ID, movieTraktId)
@@ -34,9 +35,10 @@ class MovieController(args: Bundle) : BaseController(args) {
 	}
 
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View {
-		val view = inflater.inflate(R.layout.controller_movie, container, false)
-
 		val movieTraktId = args.getString(KEY_MOVIE_TRAKT_ID)
+
+		val view = inflater.inflate(R.layout.controller_movie, container, false)
+		error = view.findViewById(R.id.controller_movie_image_error) as TextView
 
 		val subscription = model.movie(movieTraktId)
 				.subscribeOn(Schedulers.newThread())
@@ -44,11 +46,11 @@ class MovieController(args: Bundle) : BaseController(args) {
 				.subscribe(
 						{
 							updateView(it)
-							Cat.d("MovieController $it")
 
 						},
 						{
-							Cat.e("MovieController ${it.message}")
+							error.visibility = View.VISIBLE
+							error.text = it.message
 						}
 				)
 
