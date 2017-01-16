@@ -19,6 +19,7 @@ import com.igorwojda.traktclient.core.api.trakt.entities.TrendingMovie
 import com.igorwojda.traktclient.core.controller.base.BaseController
 import com.igorwojda.traktclient.feature.movie.controller.MovieController
 import com.igorwojda.traktclient.feature.trendingmovielist.model.TrendingMovieListModel
+import kotlinx.android.synthetic.main.controller_trending_movie_list.view.*
 import kotlinx.android.synthetic.main.trending_movie_row_item.view.*
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
@@ -51,15 +52,15 @@ class TrendingMovieListController(args: Bundle? = null) : BaseController(args) {
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View {
 		val view = inflater.inflate(R.layout.controller_trending_movie_list, container, false)
 
-		recyclerView = view.findViewById(R.id.controller_trending_movie_list_recycler_view) as RecyclerView
+		recyclerView = view.controller_trending_movie_list_recycler_view
 		recyclerView.setHasFixedSize(true)
 		recyclerView.layoutManager = LinearLayoutManager(view.context)
 		recyclerView.adapter = TrendingMovieAdapter(LayoutInflater.from(view.context), view.context)
 
-		error = view.findViewById(R.id.controller_trending_movie_list_error) as TextView
-		progressBar = view.findViewById(R.id.controller_trending_movie_list_progressBar) as ProgressBar
+		error = view.controller_trending_movie_list_error
+		progressBar = view.controller_trending_movie_list_progressBar
 
-		detailContainer = view.findViewById(R.id.controller_trending_movie_list_detail_container) as ViewGroup?
+		detailContainer = view.controller_trending_movie_list_detail_container
 
 		loadTrendingMovies()
 

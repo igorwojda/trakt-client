@@ -40,8 +40,8 @@ class MovieController(args: Bundle) : BaseController(args) {
 		val movieTraktId = args.getString(KEY_MOVIE_TRAKT_ID)
 
 		val view = inflater.inflate(R.layout.controller_movie, container, false)
-		error = view.findViewById(R.id.controller_movie_image_error) as TextView
-		progressBar = view.findViewById(R.id.controller_movie_image_progressBar) as ProgressBar
+		error = view.controller_movie_image_error
+		progressBar = view.controller_movie_image_progressBar
 
 		val subscription = model.movie(movieTraktId)
 				.subscribeOn(Schedulers.newThread())

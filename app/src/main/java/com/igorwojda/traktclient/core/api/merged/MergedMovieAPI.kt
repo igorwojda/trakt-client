@@ -59,7 +59,7 @@ class MergedMovieAPI {
 		var url: String? = null
 
 		weMakeSitesAPI.movies().movie(imdb).subscribe(
-				{ url = it.image })
+				{ url = it.image }, {})
 
 		return url
 	}
