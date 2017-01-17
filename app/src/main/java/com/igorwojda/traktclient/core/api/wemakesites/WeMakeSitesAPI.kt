@@ -25,7 +25,7 @@ class WeMakeSitesAPI(private val apiKey: String) {
 
 		OkHttpClient.Builder()
 				.addNetworkInterceptor(WeMakeSitesRequestInterceptor(apiKey))
-				.addInterceptor(logging)
+//				.addInterceptor(logging)
 				.connectTimeout(3, TimeUnit.SECONDS)
 				.build()
 	}
