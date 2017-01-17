@@ -30,7 +30,9 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     testCompile 'junit:junit:4.12'
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compile ("org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version") {
+        exclude group: 'org.jetbrains', module: 'app'
+    }
 
     //Support
     compile 'com.android.support:appcompat-v7:25.1.0'
@@ -56,7 +58,7 @@ dependencies {
     compile 'io.reactivex:rxkotlin:0.60.0'
 
     //RxStore
-    compile 'au.com.gridstone.rxstore:rxstore:5.0.5'
+    compile ('au.com.gridstone.rxstore:rxstore:5.0.5') { exclude group: 'org.jetbrains'}
     compile 'au.com.gridstone.rxstore:rxstore-kotlin:5.0.5'
     compile 'au.com.gridstone.rxstore:converter-moshi:5.0.5'
 
