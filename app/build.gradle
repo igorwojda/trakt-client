@@ -59,8 +59,8 @@ dependencies {
 
     //RxStore
     compile ('au.com.gridstone.rxstore:rxstore:5.0.5') { exclude group: 'org.jetbrains'}
-    compile 'au.com.gridstone.rxstore:rxstore-kotlin:5.0.5'
-    compile 'au.com.gridstone.rxstore:converter-moshi:5.0.5'
+    compile ('au.com.gridstone.rxstore:rxstore-kotlin:5.0.5') { exclude group: 'org.jetbrains'}
+    compile ('au.com.gridstone.rxstore:converter-moshi:5.0.5') { exclude group: 'org.jetbrains'}
 
     //Other
     compile 'joda-time:joda-time:2.9.7'
