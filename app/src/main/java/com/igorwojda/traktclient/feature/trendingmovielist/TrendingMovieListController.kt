@@ -1,5 +1,6 @@
 package com.igorwojda.traktclient.feature.trendingmovielist
 
+import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -9,10 +10,10 @@ import com.bluelinelabs.conductor.RouterTransaction
 import com.bluelinelabs.conductor.changehandler.HorizontalChangeHandler
 import com.hannesdorfmann.adapterdelegates3.AdapterDelegatesManager
 import com.hannesdorfmann.adapterdelegates3.ListDelegationAdapter
-import com.hannesdorfmann.mosby.mvp.conductor.lce.MvpLceController
 import com.igorwojda.traktclient.R
 import com.igorwojda.traktclient.core.api.trakt.entities.Movie
 import com.igorwojda.traktclient.core.api.trakt.entities.TrendingMovie
+import com.igorwojda.traktclient.core.conductor.controller.BaseController
 import com.igorwojda.traktclient.feature.movie.MovieController
 import com.igorwojda.traktclient.feature.trendingmovielist.adapter.TrendingMovieAdapterDelegate
 
@@ -20,7 +21,7 @@ import com.igorwojda.traktclient.feature.trendingmovielist.adapter.TrendingMovie
  * Created by Panel on 14.01.2017
  */
 
-class TrendingMovieListController : MvpLceController<RecyclerView, List<TrendingMovie>, TrendingMovieListContract.View, TrendingMovieListPresenter>(),
+class TrendingMovieListController (args: Bundle? = null): BaseController<RecyclerView, List<TrendingMovie>, TrendingMovieListContract.View, TrendingMovieListPresenter>(args),
 									TrendingMovieListContract.View {
 
 	private lateinit var adapter: ListDelegationAdapter<List<TrendingMovie>>

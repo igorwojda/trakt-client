@@ -6,9 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.hannesdorfmann.mosby.mvp.conductor.lce.MvpLceController
 import com.igorwojda.traktclient.R
 import com.igorwojda.traktclient.core.api.trakt.entities.Movie
+import com.igorwojda.traktclient.core.conductor.controller.BaseController
 import kotlinx.android.synthetic.main.controller_movie.view.*
 
 //import com.igorwojda.traktclient.core.extensions.Bundle
@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.controller_movie.view.*
  * Created by Panel on 14.01.2017
  */
 //Todo w dobr stonre MovieContract.View, a nie MovieContract.Presenter?
-class MovieController(args: Bundle) : MvpLceController<ViewGroup, Movie, MovieContract.View, MoviePresenter>(args),
+class MovieController(args: Bundle? = null) : BaseController<ViewGroup, Movie, MovieContract.View, MoviePresenter>(args),
 		MovieContract.View {
 
 	lateinit var movie: Movie
