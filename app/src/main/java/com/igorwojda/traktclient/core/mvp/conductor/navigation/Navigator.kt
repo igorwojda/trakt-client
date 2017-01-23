@@ -1,22 +1,24 @@
-package com.hannesdorfmann.mosby.conductor.sample.navigation
+package com.igorwojda.traktclient.core.mvp.conductor.navigation
 
 import com.bluelinelabs.conductor.Router
 import com.bluelinelabs.conductor.RouterTransaction
 import com.bluelinelabs.conductor.changehandler.HorizontalChangeHandler
+import com.igorwojda.traktclient.core.api.trakt.entities.Movie
 import com.igorwojda.traktclient.feature.movie.view.MovieController
 
 interface Navigator {
 
 	val router: Router
 
-	fun showMovie(movieTraktId:String) {
+	fun showMovie(movie:Movie) {
+		val id = movie.ids?.trakt ?: return
 		val handler = HorizontalChangeHandler()
 
-		//ToDO: Pass movie object
-		router.pushController(RouterTransaction.with(MovieController(movieTraktId) )
+		val controller = RouterTransaction.with(MovieController(id))
 				.pushChangeHandler(handler)
 				.popChangeHandler(handler)
-		)
+
+		router.pushController(controller)
 	}
 
 }

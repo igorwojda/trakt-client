@@ -27,8 +27,6 @@ class TrendingMovieListController(args: Bundle? = null) : BaseController<Recycle
 
 	private lateinit var adapter: ListDelegationAdapter<List<TrendingMovie>>
 
-	private val navigator = TrendingMovieListPresenter(TrendingMovieListRepository())
-
 	override fun setData(data: List<TrendingMovie>) {
 		adapter.items = data
 		adapter.notifyDataSetChanged()
@@ -57,8 +55,7 @@ class TrendingMovieListController(args: Bundle? = null) : BaseController<Recycle
 		title = resources?.getString(R.string.trendngMovies) ?: ""
 	}
 
-//	private fun showMovie(trendingMovie: TrendingMovie) = trendingMovie.movie?.let { navigator.showMovie(it) }
-	private fun showMovie(trendingMovie: TrendingMovie) = trendingMovie.movie?.ids?.trakt?.let { showMovieLocal(it) }
+	private fun showMovie(trendingMovie: TrendingMovie) = trendingMovie.movie?.let { presenter.navigateToMovie(it) }
 
 		//ToDo: move to com.hannesdorfmann.mosby.conductor.sample.navigation
 	private fun showMovieLocal(movieTraktId: String) {

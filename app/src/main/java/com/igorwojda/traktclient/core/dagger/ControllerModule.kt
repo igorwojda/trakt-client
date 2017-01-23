@@ -1,9 +1,13 @@
-package com.hannesdorfmann.mosby.conductor.sample.dagger
+package com.igorwojda.traktclient.core.dagger
 
-//@Module
-//class ControllerModule(private val navigator: Navigator) {
-//
-//  @Provides
-//  @ControllerScope
-//  fun provideNavigator() = navigator
-//}
+import com.igorwojda.traktclient.core.mvp.conductor.navigation.Navigator
+import dagger.Module
+import dagger.Provides
+
+@Module
+class ControllerModule(private val navigator: Navigator) {
+
+  @Provides
+  @ControllerScope
+  fun provideNavigator() = navigator
+}

@@ -1,5 +1,6 @@
 package com.igorwojda.traktclient.feature.trendingmovielist.presenter
 
+import com.igorwojda.traktclient.core.api.trakt.entities.Movie
 import com.igorwojda.traktclient.core.api.trakt.entities.TrendingMovie
 import com.igorwojda.traktclient.core.mvp.mosby.BasePresenter
 import com.igorwojda.traktclient.feature.trendingmovielist.model.TrendingMovieListRepository
@@ -43,4 +44,6 @@ class TrendingMovieListPresenter @Inject constructor(private val repository: Tre
 		super.attachView(view)
 		view?.loadData(false)
 	}
+
+	fun navigateToMovie(movie: Movie) = movie?.let { view?.navigator?.showMovie(it) }
 }

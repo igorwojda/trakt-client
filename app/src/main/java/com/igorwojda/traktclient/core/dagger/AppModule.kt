@@ -1,14 +1,13 @@
 package com.igorwojda.traktclient.core.dagger
 
 
-
 /**
  * Created by Panel on 23.01.2017
  */
 //@Module
-//class AppModule(private var application: Application) {
+//class AppModule(private val applicationContext: Context) {
 //
-//	@Provides
 //	@Singleton
-//	fun provideApplication(): Application = application
+//	@Provides
+//	fun provideApplicationContext() = applicationContext
 //}
