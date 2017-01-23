@@ -13,9 +13,6 @@ import com.squareup.leakcanary.RefWatcher
  */
 class TraktClientApplication : Application() {
 
-	init {
-	}
-
 	companion object{
 		lateinit var instance: TraktClientApplication
 

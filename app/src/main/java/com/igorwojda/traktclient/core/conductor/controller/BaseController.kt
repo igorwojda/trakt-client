@@ -1,12 +1,13 @@
-package com.igorwojda.traktclient.core.controller.base
+package com.igorwojda.traktclient.core.conductor.controller
 
 import android.os.Bundle
 import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
 import android.view.View
+import com.bluelinelabs.conductor.Controller
 import kotlin.properties.Delegates
 
-abstract class BaseController protected constructor(args: Bundle?) : RxController(args) {
+abstract class BaseController protected constructor(args: Bundle?) : Controller(args) {
 
 	protected val actionBar: ActionBar?
 		get() = (router?.activity as AppCompatActivity?)?.supportActionBar

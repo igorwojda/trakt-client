@@ -10,7 +10,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.igorwojda.traktclient.R
 import com.igorwojda.traktclient.core.api.trakt.entities.Movie
-import com.igorwojda.traktclient.core.controller.base.BaseController
+import com.igorwojda.traktclient.core.conductor.controller.BaseController
 import com.igorwojda.traktclient.core.extension.Bundle
 import com.igorwojda.traktclient.feature.movie.model.MovieModel
 import kotlinx.android.synthetic.main.controller_movie.view.*
@@ -56,8 +56,6 @@ class MovieController(args: Bundle) : BaseController(args) {
 							error.text = it.message
 						}
 				)
-
-		compositeSubscription.add(subscription)
 
 		return view
 	}

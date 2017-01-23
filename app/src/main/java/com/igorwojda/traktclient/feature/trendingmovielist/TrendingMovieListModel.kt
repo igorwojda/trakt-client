@@ -1,12 +1,13 @@
-package com.igorwojda.traktclient.feature.trendingmovielist.model
+package com.igorwojda.traktclient.feature.trendingmovielist
 
 import com.igorwojda.traktclient.core.api.merged.MergedMovieAPI
+import javax.inject.Inject
 
 /**
  * Created by Panel on 14.01.2017
  */
 
-class TrendingMovieListModel {
+class TrendingMovieListModel @Inject constructor() {
 	val model = MergedMovieAPI()
 
 	//No refresh for now

@@ -1,4 +1,4 @@
-package com.igorwojda.traktclient.core.controller.base
+package com.igorwojda.traktclient.core.conductor.controller
 
 import android.os.Bundle
 import com.bluelinelabs.conductor.Controller

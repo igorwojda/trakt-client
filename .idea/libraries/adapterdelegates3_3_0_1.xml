@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="adapterdelegates3-3.0.1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.hannesdorfmann/adapterdelegates3/3.0.1/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.hannesdorfmann/adapterdelegates3/3.0.1/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.hannesdorfmann/adapterdelegates3/3.0.1/41071c0e5f529eace84b8067f8d0a2e2d2e372f/adapterdelegates3-3.0.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
