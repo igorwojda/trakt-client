@@ -1,7 +1,7 @@
-package com.igorwojda.traktclient.feature.trendingmovielist
+package com.igorwojda.traktclient.feature.movie
 
 import com.hannesdorfmann.mosby.mvp.MvpBasePresenter
-import net.vrallev.android.cat.Cat
+import com.igorwojda.traktclient.core.api.trakt.entities.Movie
 import rx.Subscription
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
@@ -11,26 +11,25 @@ import javax.inject.Inject
  * Created by Panel on 22.01.2017
  */
 //Todo: change TrendingMovieListModel - inject?
-class TrendingMovieListPresenter @Inject constructor(private val model: TrendingMovieListModel) : MvpBasePresenter<TrendingMovieListContract.View>() {
+class MoviePresenter @Inject constructor(private val model: MovieModel) : MvpBasePresenter<MovieContract.View>() {
 
+	//Todo: subscriptio up
 	private lateinit var subscription: Subscription
 
-	fun getTrendingMovies() {
-		subscription = model.trending()
+	fun getMovie(movie:Movie) {
+		var id = movie?.ids?.trakt
+
+		subscription = model.movie(id!!)
 				.subscribeOn(Schedulers.newThread())
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribe(
-						{
-							Cat.d("===========it: $it")
-							Cat.d("===========view: $view")
-							view?.setData(it)
-							view?.showContent()
-						},
-						{
-							Cat.e("===========$it")
-							view?.showError(it, false)
-						}
-				)
+				{
+					view?.setData(it)
+					view?.showContent()
+				},
+				{
+					view?.showError(it, false)
+				})
 	}
 
 	override fun detachView(retainInstance: Boolean) {

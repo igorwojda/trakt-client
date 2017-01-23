@@ -4,7 +4,7 @@ import com.bluelinelabs.conductor.Router
 import com.bluelinelabs.conductor.RouterTransaction
 import com.bluelinelabs.conductor.changehandler.HorizontalChangeHandler
 import com.igorwojda.traktclient.core.api.trakt.entities.Movie
-import com.igorwojda.traktclient.feature.movie.controller.MovieController
+import com.igorwojda.traktclient.feature.movie.MovieController
 
 interface Navigator {
 
@@ -14,7 +14,7 @@ interface Navigator {
 		val handler = HorizontalChangeHandler()
 
 		//ToDO: Pass movie object
-		router.pushController(RouterTransaction.with(MovieController("Detail") )
+		router.pushController(RouterTransaction.with(MovieController(movie) )
 				.pushChangeHandler(handler)
 				.popChangeHandler(handler)
 		)

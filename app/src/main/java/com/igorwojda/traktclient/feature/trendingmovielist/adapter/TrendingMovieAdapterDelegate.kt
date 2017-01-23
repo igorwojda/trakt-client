@@ -9,7 +9,8 @@ import com.hannesdorfmann.adapterdelegates3.AdapterDelegate
 import com.igorwojda.traktclient.R
 import com.igorwojda.traktclient.core.api.trakt.entities.Movie
 import com.igorwojda.traktclient.core.api.trakt.entities.TrendingMovie
-import kotlinx.android.synthetic.main.trending_movie_item.view.*
+import kotlinx.android.synthetic.main.item_trending_movie.view.*
+import net.vrallev.android.cat.Cat
 
 /**
  * Created by Panel on 22.01.2017
@@ -24,7 +25,7 @@ class TrendingMovieAdapterDelegate(
 	}
 
 	override fun onCreateViewHolder(parent: ViewGroup?): RecyclerView.ViewHolder
-		= TrendingMovieViewHolder(inflater.inflate(R.layout.trending_movie_item, parent, false))
+		= TrendingMovieViewHolder(inflater.inflate(R.layout.item_trending_movie, parent, false))
 
 	override fun isForViewType(items: List<TrendingMovie>, position: Int)
 		= items[position] is TrendingMovie
@@ -38,6 +39,8 @@ class TrendingMovieAdapterDelegate(
 		}
 
 		fun bind(item: TrendingMovie) {
+			Cat.d("Bind item ${item.movie?.title}")
+
 			this.item = item
 
 			val movie: Movie? = item.movie ?: return

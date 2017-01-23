@@ -3,6 +3,7 @@ package com.igorwojda.traktclient.core.api.trakt
 import com.igorwojda.traktclient.core.api.trakt.entities.AccessToken
 import com.igorwojda.traktclient.core.api.trakt.retrofit.TraktAuthenticator
 import com.igorwojda.traktclient.core.api.trakt.retrofit.TraktGsonHelper
+import com.igorwojda.traktclient.core.api.trakt.retrofit.TraktRequestInterceptor
 import com.igorwojda.traktclient.core.api.trakt.services.Authentication
 import com.igorwojda.traktclient.core.api.trakt.services.Movies
 import okhttp3.OkHttpClient
@@ -33,7 +34,7 @@ class TrakAPI(val apiKey: String, private val clientSecret: String) {
 		logging.level = HttpLoggingInterceptor.Level.BODY
 
 		OkHttpClient.Builder()
-//				.addNetworkInterceptor(TraktRequestInterceptor(this))
+				.addNetworkInterceptor(TraktRequestInterceptor(this))
 				.authenticator(TraktAuthenticator(this))
 				.addInterceptor(logging)
 				.connectTimeout(3, TimeUnit.SECONDS)

@@ -2,17 +2,11 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 				android:layout_width="match_parent"
 				android:layout_height="match_parent">
-	<TextView android:id="@+id/controller_movie_image_error" android:layout_width="wrap_content"
-			  android:layout_height="wrap_content"
-			  android:layout_centerHorizontal="true"
-			  android:layout_centerVertical="true"
-			  android:text="@string/dataLoadingError"
-			  android:visibility="gone"/>
-	<ProgressBar android:id="@+id/controller_movie_image_progressBar"
-				 android:layout_width="wrap_content"
-				 android:layout_height="wrap_content"
-				 android:layout_centerHorizontal="true"
-				 android:layout_centerVertical="true"/>
+
+	<include layout="@layout/loading_view"/>
+
+	<include layout="@layout/error_view"/>
+
 	<ScrollView
 		xmlns:android="http://schemas.android.com/apk/res/android"
 		android:layout_width="fill_parent"
@@ -23,20 +17,21 @@
 					  android:layout_height="wrap_content"
 					  android:layout_marginLeft="@dimen/activity_horizontal_margin"
 					  android:layout_marginRight="@dimen/activity_horizontal_margin"
-					  android:orientation="vertical">
+					  android:orientation="vertical"
+					  android:id="@+id/contentView">
 
-			<ImageView android:id="@+id/controller_movie_image"
+			<ImageView android:id="@+id/image"
 					   android:layout_width="match_parent"
 					   android:layout_height="300dp"/>
 			<android.support.v7.widget.AppCompatRatingBar
-				android:id="@+id/controller_movie_ratingBar"
+				android:id="@+id/ratingBar"
 				style="@style/Widget.AppCompat.RatingBar.Indicator"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:layout_marginBottom="10dp"
 				android:isIndicator="true"
 				android:numStars="10"/>
-			<TextView android:id="@+id/controller_movie_genres"
+			<TextView android:id="@+id/genres"
 					  android:layout_width="match_parent"
 					  android:layout_height="wrap_content"
 			/>

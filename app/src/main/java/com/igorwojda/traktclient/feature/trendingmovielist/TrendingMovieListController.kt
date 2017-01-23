@@ -15,29 +15,29 @@ import com.hannesdorfmann.mosby.mvp.viewstate.lce.data.RetainingLceViewState
 import com.igorwojda.traktclient.R
 import com.igorwojda.traktclient.core.api.trakt.entities.Movie
 import com.igorwojda.traktclient.core.api.trakt.entities.TrendingMovie
-import com.igorwojda.traktclient.feature.movie.controller.MovieController
+import com.igorwojda.traktclient.feature.movie.MovieController
 import com.igorwojda.traktclient.feature.trendingmovielist.adapter.TrendingMovieAdapterDelegate
 
 /**
  * Created by Panel on 14.01.2017
  */
 
-class TrendingMovieListController : TrendingMovieListContract.View, MvpLceViewStateController<RecyclerView, List<TrendingMovie>, TrendingMovieListContract.View, TrendingMovieListPresenter>() {
+class TrendingMovieListController : MvpLceViewStateController<RecyclerView, List<TrendingMovie>, TrendingMovieListContract.View, TrendingMovieListPresenter>(),
+									TrendingMovieListContract.View {
+
 	private lateinit var adapter: TrendingMovieAdapter
 
 	private val navigator = TrendingMovieListPresenter(TrendingMovieListModel())
 
-
 	override fun setData(data: List<TrendingMovie>) {
 		adapter.items = data
+		adapter.notifyDataSetChanged()
 	}
 
-	override fun loadData(pullToRefresh: Boolean) {
-		presenter.getTrendingMovies()
-	}
+	override fun loadData(pullToRefresh: Boolean) { presenter.getTrendingMovies() }
 
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View {
-		val view = inflater.inflate(R.layout.trending_movie_list, container, false)
+		val view = inflater.inflate(R.layout.controller_trending_movie, container, false)
 
 		val contentView = view.findViewById(R.id.contentView) as RecyclerView
 
@@ -54,15 +54,14 @@ class TrendingMovieListController : TrendingMovieListContract.View, MvpLceViewSt
 	}
 
 //	private fun showMovie(trendingMovie: TrendingMovie) = trendingMovie.movie?.let { navigator.showMovie(it) }
-	private fun showMovie(trendingMovie: TrendingMovie) = trendingMovie.movie?.let { showMovie(it) }
-
+	private fun showMovie(trendingMovie: TrendingMovie) = trendingMovie.movie?.let { showMovieLocal(it) }
 
 		//ToDo: move to com.hannesdorfmann.mosby.conductor.sample.navigation
-	fun showMovie(movie:Movie) {
+	private fun showMovieLocal(movie:Movie) {
 		val handler = HorizontalChangeHandler()
 
 		//ToDO: Pass movie object
-		router.pushController(RouterTransaction.with(MovieController("Detail") )
+		router.pushController(RouterTransaction.with(MovieController(movie))
 				.pushChangeHandler(handler)
 				.popChangeHandler(handler)
 		)
