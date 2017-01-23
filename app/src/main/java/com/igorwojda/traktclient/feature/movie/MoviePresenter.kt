@@ -11,14 +11,10 @@ import javax.inject.Inject
  * Created by Panel on 22.01.2017
  */
 //Todo: change TrendingMovieListModel - inject?
-class MoviePresenter @Inject constructor(movie:Movie, private val model: MovieModel) : MvpBasePresenter<MovieContract.View>() {
+class MoviePresenter @Inject constructor(private val movie:Movie, private val model: MovieModel) : MvpBasePresenter<MovieContract.View>() {
 
 	//Todo: subscriptio
 	private lateinit var subscription: Subscription
-
-	init {
-		getMovie(movie)
-	}
 
 	fun getMovie(movie:Movie) {
 		var id = movie?.ids?.trakt
@@ -34,6 +30,11 @@ class MoviePresenter @Inject constructor(movie:Movie, private val model: MovieMo
 				{
 					view?.showError(it, false)
 				})
+	}
+
+	override fun attachView(view: MovieContract.View?) {
+		super.attachView(view)
+		getMovie(movie)
 	}
 
 	override fun detachView(retainInstance: Boolean) {
