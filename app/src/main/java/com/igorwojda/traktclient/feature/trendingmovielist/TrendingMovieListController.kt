@@ -32,7 +32,7 @@ class TrendingMovieListController : MvpLceController<RecyclerView, List<Trending
 		adapter.notifyDataSetChanged()
 	}
 
-	override fun loadData(pullToRefresh: Boolean) { presenter.getTrendingMovies() }
+	override fun loadData(pullToRefresh: Boolean) { presenter.loadTrendingMovies() }
 
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View {
 		val view = inflater.inflate(R.layout.controller_trending_movie, container, false)
