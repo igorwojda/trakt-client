@@ -10,7 +10,6 @@ import com.igorwojda.traktclient.R
 import com.igorwojda.traktclient.core.api.trakt.entities.Movie
 import com.igorwojda.traktclient.core.api.trakt.entities.TrendingMovie
 import kotlinx.android.synthetic.main.item_trending_movie.view.*
-import net.vrallev.android.cat.Cat
 
 /**
  * Created by Panel on 22.01.2017
@@ -30,7 +29,7 @@ class TrendingMovieAdapterDelegate(
 	override fun isForViewType(items: List<TrendingMovie>, position: Int)
 		= items[position] is TrendingMovie
 
-	inner class TrendingMovieViewHolder(v: View) : RecyclerView.ViewHolder(v) {
+	inner class TrendingMovieViewHolder(val v: View) : RecyclerView.ViewHolder(v) {
 
 		lateinit var item: TrendingMovie
 
@@ -39,8 +38,6 @@ class TrendingMovieAdapterDelegate(
 		}
 
 		fun bind(item: TrendingMovie) {
-			Cat.d("Bind item ${item.movie?.title}")
-
 			this.item = item
 
 			val movie: Movie? = item.movie ?: return

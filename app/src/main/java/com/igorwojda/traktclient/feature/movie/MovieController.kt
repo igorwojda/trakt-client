@@ -6,9 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.hannesdorfmann.mosby.conductor.viewstate.lce.MvpLceViewStateController
-import com.hannesdorfmann.mosby.mvp.viewstate.lce.LceViewState
-import com.hannesdorfmann.mosby.mvp.viewstate.lce.data.RetainingLceViewState
+import com.hannesdorfmann.mosby.mvp.conductor.lce.MvpLceController
 import com.igorwojda.traktclient.R
 import com.igorwojda.traktclient.core.api.trakt.entities.Movie
 import kotlinx.android.synthetic.main.controller_movie.view.*
@@ -19,22 +17,21 @@ import kotlinx.android.synthetic.main.controller_movie.view.*
  * Created by Panel on 14.01.2017
  */
 //Todo w dobr stonre MovieContract.View, a nie MovieContract.Presenter?
-class MovieController(args: Bundle) : MvpLceViewStateController<ViewGroup, Movie, MovieContract.View, MoviePresenter>(args),
+class MovieController(args: Bundle) : MvpLceController<ViewGroup, Movie, MovieContract.View, MoviePresenter>(args),
 		MovieContract.View {
 
-	var movie: Movie? = null
+	lateinit var movie: Movie
 
 	constructor(movie: Movie) : this(Bundle()) {
 		this.movie = movie
 	}
 
 	//Todo:
-	override fun loadData(pullToRefresh: Boolean) = presenter.getMovie(movie!!)
+	override fun loadData(pullToRefresh: Boolean) = presenter.getMovie(movie)
 
 	override fun setData(data: Movie) {
 		movie = data
 
-		val movie: Movie = movie ?: return
 		val localView = view ?: return
 
 		movie.imageUrl?.let {
@@ -55,15 +52,12 @@ class MovieController(args: Bundle) : MvpLceViewStateController<ViewGroup, Movie
 	}
 
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View {
-		return inflater.inflate(R.layout.controller_movie, container, false)
+		val view = inflater.inflate(R.layout.controller_movie, container, false)
+		return view
 	}
 
 	override fun getErrorMessage(e: Throwable?, pullToRefresh: Boolean)
 			= resources?.getString(R.string.error) ?: ""
 
-	override fun createPresenter(): MoviePresenter = MoviePresenter(MovieModel()) //daggerComponent.moviePresenter()
-
-	override fun getData() = movie
-
-	override fun createViewState(): LceViewState<Movie, MovieContract.View> = RetainingLceViewState()
+	override fun createPresenter(): MoviePresenter = MoviePresenter(movie, MovieModel()) //daggerComponent.moviePresenter()
 }

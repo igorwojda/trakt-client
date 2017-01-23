@@ -9,9 +9,7 @@ import com.bluelinelabs.conductor.RouterTransaction
 import com.bluelinelabs.conductor.changehandler.HorizontalChangeHandler
 import com.hannesdorfmann.adapterdelegates3.AdapterDelegatesManager
 import com.hannesdorfmann.mosby.conductor.sample.tasks.TrendingMovieAdapter
-import com.hannesdorfmann.mosby.conductor.viewstate.lce.MvpLceViewStateController
-import com.hannesdorfmann.mosby.mvp.viewstate.lce.LceViewState
-import com.hannesdorfmann.mosby.mvp.viewstate.lce.data.RetainingLceViewState
+import com.hannesdorfmann.mosby.mvp.conductor.lce.MvpLceController
 import com.igorwojda.traktclient.R
 import com.igorwojda.traktclient.core.api.trakt.entities.Movie
 import com.igorwojda.traktclient.core.api.trakt.entities.TrendingMovie
@@ -22,7 +20,7 @@ import com.igorwojda.traktclient.feature.trendingmovielist.adapter.TrendingMovie
  * Created by Panel on 14.01.2017
  */
 
-class TrendingMovieListController : MvpLceViewStateController<RecyclerView, List<TrendingMovie>, TrendingMovieListContract.View, TrendingMovieListPresenter>(),
+class TrendingMovieListController : MvpLceController<RecyclerView, List<TrendingMovie>, TrendingMovieListContract.View, TrendingMovieListPresenter>(),
 									TrendingMovieListContract.View {
 
 	private lateinit var adapter: TrendingMovieAdapter
@@ -39,14 +37,12 @@ class TrendingMovieListController : MvpLceViewStateController<RecyclerView, List
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View {
 		val view = inflater.inflate(R.layout.controller_trending_movie, container, false)
 
-		val contentView = view.findViewById(R.id.contentView) as RecyclerView
 
-		//ToDo: layout inflater from method param
 		val delegatesManager = AdapterDelegatesManager<List<TrendingMovie>>()
-				.addDelegate(TrendingMovieAdapterDelegate(activity!!.layoutInflater, { showMovie(it) }))
+				.addDelegate(TrendingMovieAdapterDelegate(inflater, { showMovie(it) }))
 
+		contentView = view.findViewById(R.id.contentView) as RecyclerView
 		adapter = TrendingMovieAdapter(delegatesManager)
-
 		contentView.adapter = adapter
 		contentView.layoutManager = LinearLayoutManager(activity)
 
@@ -71,8 +67,4 @@ class TrendingMovieListController : MvpLceViewStateController<RecyclerView, List
 
 	override fun getErrorMessage(e: Throwable?, pullToRefresh: Boolean): String = resources?.getString(
 			R.string.error) ?: ""
-
-	override fun createViewState(): LceViewState<List<TrendingMovie>, TrendingMovieListContract.View> = RetainingLceViewState()
-
-	override fun getData(): List<TrendingMovie> = adapter.items
 }
