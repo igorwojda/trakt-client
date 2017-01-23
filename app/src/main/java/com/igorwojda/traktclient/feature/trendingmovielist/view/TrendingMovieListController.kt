@@ -16,7 +16,7 @@ import com.igorwojda.traktclient.core.api.trakt.entities.TrendingMovie
 import com.igorwojda.traktclient.core.mvp.conductor.controller.BaseController
 import com.igorwojda.traktclient.feature.movie.view.MovieController
 import com.igorwojda.traktclient.feature.trendingmovielist.TrendingMovieListContract
-import com.igorwojda.traktclient.feature.trendingmovielist.model.TrendingMovieListModel
+import com.igorwojda.traktclient.feature.trendingmovielist.model.TrendingMovieListRepository
 import com.igorwojda.traktclient.feature.trendingmovielist.presenter.TrendingMovieListPresenter
 import com.igorwojda.traktclient.feature.trendingmovielist.view.adapter.TrendingMovieAdapterDelegate
 
@@ -29,7 +29,7 @@ class TrendingMovieListController (args: Bundle? = null): BaseController<Recycle
 
 	private lateinit var adapter: ListDelegationAdapter<List<TrendingMovie>>
 
-	private val navigator = TrendingMovieListPresenter(TrendingMovieListModel())
+	private val navigator = TrendingMovieListPresenter(TrendingMovieListRepository())
 
 	override fun setData(data: List<TrendingMovie>) {
 		adapter.items = data
@@ -73,7 +73,7 @@ class TrendingMovieListController (args: Bundle? = null): BaseController<Recycle
 		)
 	}
 
-	override fun createPresenter(): TrendingMovieListPresenter = TrendingMovieListPresenter(TrendingMovieListModel()) //daggerComponent.trendingMoviePresenter()
+	override fun createPresenter(): TrendingMovieListPresenter = TrendingMovieListPresenter(TrendingMovieListRepository()) //daggerComponent.trendingMoviePresenter()
 
 	override fun getErrorMessage(e: Throwable?, pullToRefresh: Boolean): String = resources?.getString(
 			R.string.error) ?: ""

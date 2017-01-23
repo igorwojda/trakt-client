@@ -10,7 +10,7 @@ import com.igorwojda.traktclient.R
 import com.igorwojda.traktclient.core.api.trakt.entities.Movie
 import com.igorwojda.traktclient.core.mvp.conductor.controller.BaseController
 import com.igorwojda.traktclient.feature.movie.MovieContract
-import com.igorwojda.traktclient.feature.movie.model.MovieModel
+import com.igorwojda.traktclient.feature.movie.model.MovieRepository
 import com.igorwojda.traktclient.feature.movie.presenter.MoviePresenter
 import kotlinx.android.synthetic.main.controller_movie.view.*
 
@@ -62,5 +62,5 @@ class MovieController(args: Bundle? = null) : BaseController<ViewGroup, Movie, M
 	override fun getErrorMessage(e: Throwable?, pullToRefresh: Boolean)
 			= resources?.getString(R.string.error) ?: ""
 
-	override fun createPresenter(): MoviePresenter = MoviePresenter(movie, MovieModel()) //daggerComponent.moviePresenter()
+	override fun createPresenter(): MoviePresenter = MoviePresenter(movie, MovieRepository()) //daggerComponent.moviePresenter()
 }

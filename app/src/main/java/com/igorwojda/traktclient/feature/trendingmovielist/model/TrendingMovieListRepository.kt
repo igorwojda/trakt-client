@@ -7,7 +7,7 @@ import javax.inject.Inject
  * Created by Panel on 14.01.2017
  */
 
-class TrendingMovieListModel @Inject constructor() {
+class TrendingMovieListRepository @Inject constructor() {
 	val model = MergedMovieAPI()
 
 	//No refresh for now
