@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import com.bluelinelabs.conductor.RouterTransaction
 import com.bluelinelabs.conductor.changehandler.HorizontalChangeHandler
 import com.hannesdorfmann.adapterdelegates3.AdapterDelegatesManager
-import com.hannesdorfmann.mosby.conductor.sample.tasks.TrendingMovieAdapter
+import com.hannesdorfmann.adapterdelegates3.ListDelegationAdapter
 import com.hannesdorfmann.mosby.mvp.conductor.lce.MvpLceController
 import com.igorwojda.traktclient.R
 import com.igorwojda.traktclient.core.api.trakt.entities.Movie
@@ -23,7 +23,7 @@ import com.igorwojda.traktclient.feature.trendingmovielist.adapter.TrendingMovie
 class TrendingMovieListController : MvpLceController<RecyclerView, List<TrendingMovie>, TrendingMovieListContract.View, TrendingMovieListPresenter>(),
 									TrendingMovieListContract.View {
 
-	private lateinit var adapter: TrendingMovieAdapter
+	private lateinit var adapter: ListDelegationAdapter<List<TrendingMovie>>
 
 	private val navigator = TrendingMovieListPresenter(TrendingMovieListModel())
 
@@ -42,7 +42,7 @@ class TrendingMovieListController : MvpLceController<RecyclerView, List<Trending
 				.addDelegate(TrendingMovieAdapterDelegate(inflater, { showMovie(it) }))
 
 		contentView = view.findViewById(R.id.contentView) as RecyclerView
-		adapter = TrendingMovieAdapter(delegatesManager)
+		adapter = ListDelegationAdapter(delegatesManager)
 		contentView.adapter = adapter
 		contentView.layoutManager = LinearLayoutManager(activity)
 

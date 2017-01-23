@@ -1,6 +1,7 @@
 package com.igorwojda.traktclient.feature.trendingmovielist
 
 import com.hannesdorfmann.mosby.mvp.MvpBasePresenter
+import com.igorwojda.traktclient.core.api.trakt.entities.TrendingMovie
 import rx.Subscription
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
@@ -14,14 +15,22 @@ class TrendingMovieListPresenter @Inject constructor(private val model: Trending
 
 	private lateinit var subscription: Subscription
 
+	private var trendingMovies: List<TrendingMovie>? = null
+
 	fun getTrendingMovies() {
+
+		trendingMovies?.let {
+			showTrendingMovies(it)
+			return
+		}
+
 		subscription = model.trending()
 				.subscribeOn(Schedulers.newThread())
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribe(
 						{
-							view?.setData(it)
-							view?.showContent()
+							showTrendingMovies(it)
+							trendingMovies = it
 						},
 						{
 							view?.showError(it, false)
@@ -29,9 +38,19 @@ class TrendingMovieListPresenter @Inject constructor(private val model: Trending
 				)
 	}
 
+	private fun showTrendingMovies(list: List<TrendingMovie>){
+		view?.setData(list)
+		view?.showContent()
+	}
+
 	override fun attachView(view: TrendingMovieListContract.View?) {
 		super.attachView(view)
-		getTrendingMovies()
+
+
+		if(trendingMovies == null)
+			getTrendingMovies()
+		else
+			trendingMovies?.let { showTrendingMovies(it) }
 	}
 
 	override fun detachView(retainInstance: Boolean) {
