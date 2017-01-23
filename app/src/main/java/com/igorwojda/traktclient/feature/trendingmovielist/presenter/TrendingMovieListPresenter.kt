@@ -1,7 +1,9 @@
-package com.igorwojda.traktclient.feature.trendingmovielist
+package com.igorwojda.traktclient.feature.trendingmovielist.presenter
 
 import com.igorwojda.traktclient.core.api.trakt.entities.TrendingMovie
 import com.igorwojda.traktclient.core.mvp.mosby.BasePresenter
+import com.igorwojda.traktclient.feature.trendingmovielist.TrendingMovieListContract
+import com.igorwojda.traktclient.feature.trendingmovielist.model.TrendingMovieListModel
 import net.vrallev.android.cat.Cat
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers

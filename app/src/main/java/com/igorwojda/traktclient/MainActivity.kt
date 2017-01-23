@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import com.bluelinelabs.conductor.Conductor
 import com.bluelinelabs.conductor.Router
 import com.bluelinelabs.conductor.RouterTransaction
-import com.igorwojda.traktclient.feature.trendingmovielist.TrendingMovieListController
+import com.igorwojda.traktclient.feature.trendingmovielist.view.TrendingMovieListController
 
 class MainActivity : AppCompatActivity() {
 

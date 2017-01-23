@@ -1,4 +1,4 @@
-package com.igorwojda.traktclient.feature.movie
+package com.igorwojda.traktclient.feature.movie.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,6 +9,9 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.igorwojda.traktclient.R
 import com.igorwojda.traktclient.core.api.trakt.entities.Movie
 import com.igorwojda.traktclient.core.mvp.conductor.controller.BaseController
+import com.igorwojda.traktclient.feature.movie.MovieContract
+import com.igorwojda.traktclient.feature.movie.model.MovieModel
+import com.igorwojda.traktclient.feature.movie.presenter.MoviePresenter
 import kotlinx.android.synthetic.main.controller_movie.view.*
 
 //import com.igorwojda.traktclient.core.extensions.Bundle

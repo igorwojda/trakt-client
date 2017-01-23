@@ -1,4 +1,4 @@
-package com.igorwojda.traktclient.feature.trendingmovielist
+package com.igorwojda.traktclient.feature.trendingmovielist.model
 
 import com.igorwojda.traktclient.core.api.merged.MergedMovieAPI
 import javax.inject.Inject

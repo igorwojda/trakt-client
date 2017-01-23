@@ -1,4 +1,4 @@
-package com.igorwojda.traktclient.feature.movie
+package com.igorwojda.traktclient.feature.movie.model
 
 import com.igorwojda.traktclient.core.api.merged.MergedMovieAPI
 

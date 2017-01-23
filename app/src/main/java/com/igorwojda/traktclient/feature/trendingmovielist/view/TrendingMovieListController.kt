@@ -1,4 +1,4 @@
-package com.igorwojda.traktclient.feature.trendingmovielist
+package com.igorwojda.traktclient.feature.trendingmovielist.view
 
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -14,15 +14,18 @@ import com.igorwojda.traktclient.R
 import com.igorwojda.traktclient.core.api.trakt.entities.Movie
 import com.igorwojda.traktclient.core.api.trakt.entities.TrendingMovie
 import com.igorwojda.traktclient.core.mvp.conductor.controller.BaseController
-import com.igorwojda.traktclient.feature.movie.MovieController
-import com.igorwojda.traktclient.feature.trendingmovielist.adapter.TrendingMovieAdapterDelegate
+import com.igorwojda.traktclient.feature.movie.view.MovieController
+import com.igorwojda.traktclient.feature.trendingmovielist.TrendingMovieListContract
+import com.igorwojda.traktclient.feature.trendingmovielist.model.TrendingMovieListModel
+import com.igorwojda.traktclient.feature.trendingmovielist.presenter.TrendingMovieListPresenter
+import com.igorwojda.traktclient.feature.trendingmovielist.view.adapter.TrendingMovieAdapterDelegate
 
 /**
  * Created by Panel on 14.01.2017
  */
 
 class TrendingMovieListController (args: Bundle? = null): BaseController<RecyclerView, List<TrendingMovie>, TrendingMovieListContract.View, TrendingMovieListPresenter>(args),
-									TrendingMovieListContract.View {
+		TrendingMovieListContract.View {
 
 	private lateinit var adapter: ListDelegationAdapter<List<TrendingMovie>>
 
@@ -60,7 +63,7 @@ class TrendingMovieListController (args: Bundle? = null): BaseController<Recycle
 	private fun showMovie(trendingMovie: TrendingMovie) = trendingMovie.movie?.let { showMovieLocal(it) }
 
 		//ToDo: move to com.hannesdorfmann.mosby.conductor.sample.navigation
-	private fun showMovieLocal(movie:Movie) {
+	private fun showMovieLocal(movie: Movie) {
 		val handler = HorizontalChangeHandler()
 
 		//ToDO: Pass movie object

@@ -4,7 +4,7 @@ import com.bluelinelabs.conductor.Router
 import com.bluelinelabs.conductor.RouterTransaction
 import com.bluelinelabs.conductor.changehandler.HorizontalChangeHandler
 import com.igorwojda.traktclient.core.api.trakt.entities.Movie
-import com.igorwojda.traktclient.feature.movie.MovieController
+import com.igorwojda.traktclient.feature.movie.view.MovieController
 
 interface Navigator {
 
