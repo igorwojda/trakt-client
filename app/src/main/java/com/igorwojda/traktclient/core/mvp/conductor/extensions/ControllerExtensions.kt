@@ -1,4 +1,4 @@
-package com.igorwojda.traktclient.core.conductor.extensions
+package com.igorwojda.traktclient.core.mvp.conductor.extensions
 
 /**
  * Created by Panel on 22.01.2017

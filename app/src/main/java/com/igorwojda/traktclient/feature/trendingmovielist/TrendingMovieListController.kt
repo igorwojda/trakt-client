@@ -13,7 +13,7 @@ import com.hannesdorfmann.adapterdelegates3.ListDelegationAdapter
 import com.igorwojda.traktclient.R
 import com.igorwojda.traktclient.core.api.trakt.entities.Movie
 import com.igorwojda.traktclient.core.api.trakt.entities.TrendingMovie
-import com.igorwojda.traktclient.core.conductor.controller.BaseController
+import com.igorwojda.traktclient.core.mvp.conductor.controller.BaseController
 import com.igorwojda.traktclient.feature.movie.MovieController
 import com.igorwojda.traktclient.feature.trendingmovielist.adapter.TrendingMovieAdapterDelegate
 

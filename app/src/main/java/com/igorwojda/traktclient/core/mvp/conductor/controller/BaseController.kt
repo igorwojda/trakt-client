@@ -1,4 +1,4 @@
-package com.igorwojda.traktclient.core.conductor.controller
+package com.igorwojda.traktclient.core.mvp.conductor.controller
 
 import android.os.Bundle
 import android.support.v7.app.ActionBar

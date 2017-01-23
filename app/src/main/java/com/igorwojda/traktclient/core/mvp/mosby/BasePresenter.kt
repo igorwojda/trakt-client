@@ -1,4 +1,4 @@
-package com.igorwojda.traktclient.core.mosby
+package com.igorwojda.traktclient.core.mvp.mosby
 
 import com.hannesdorfmann.mosby.mvp.MvpBasePresenter
 import com.hannesdorfmann.mosby.mvp.MvpView

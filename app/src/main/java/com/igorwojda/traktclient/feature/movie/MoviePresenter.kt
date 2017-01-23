@@ -1,7 +1,7 @@
 package com.igorwojda.traktclient.feature.movie
 
 import com.igorwojda.traktclient.core.api.trakt.entities.Movie
-import com.igorwojda.traktclient.core.mosby.BasePresenter
+import com.igorwojda.traktclient.core.mvp.mosby.BasePresenter
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
 import javax.inject.Inject
