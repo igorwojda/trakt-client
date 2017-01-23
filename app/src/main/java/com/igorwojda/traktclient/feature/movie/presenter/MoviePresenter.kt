@@ -6,34 +6,38 @@ import com.igorwojda.traktclient.feature.movie.MovieContract
 import com.igorwojda.traktclient.feature.movie.model.MovieRepository
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
-import javax.inject.Inject
 
 /**
  * Created by Panel on 22.01.2017
  */
 //Todo: change TrendingMovieListRepository - inject?
-class MoviePresenter @Inject constructor(private val movie: Movie, private val repository: MovieRepository) : BasePresenter<MovieContract.View>() {
-	fun getMovie(movie: Movie) {
-		var id = movie?.ids?.trakt
+class MoviePresenter : BasePresenter<MovieContract.View>() {
 
-		//ToDO: id
-		val subscription = repository.movie(id!!)
+	private val repository: MovieRepository = MovieRepository()
+
+	fun loadMovie(movieTraktId: String) {
+		val subscription = repository.movie(movieTraktId)
 				.subscribeOn(Schedulers.newThread())
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribe(
-				{
-					view?.setData(it)
-					view?.showContent()
-				},
-				{
-					view?.showError(it, false)
-				})
+						{
+							showMovie(it)
+
+						},
+						{
+							view?.showError(it, false)
+						})
 
 		compositeSubscription.add(subscription)
 	}
 
+	private fun showMovie(movie: Movie) {
+		view?.setData(movie)
+		view?.showContent()
+	}
+
 	override fun attachView(view: MovieContract.View?) {
 		super.attachView(view)
-		getMovie(movie)
+		view?.loadData(false)
 	}
 }

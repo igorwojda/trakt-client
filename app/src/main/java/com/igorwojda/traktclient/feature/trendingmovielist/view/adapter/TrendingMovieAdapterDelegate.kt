@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.hannesdorfmann.adapterdelegates3.AdapterDelegate
 import com.igorwojda.traktclient.R
@@ -24,10 +25,10 @@ class TrendingMovieAdapterDelegate(
 	}
 
 	override fun onCreateViewHolder(parent: ViewGroup?): RecyclerView.ViewHolder
-		= TrendingMovieViewHolder(inflater.inflate(R.layout.item_trending_movie, parent, false))
+			= TrendingMovieViewHolder(inflater.inflate(R.layout.item_trending_movie, parent, false))
 
 	override fun isForViewType(items: List<TrendingMovie>, position: Int)
-		= items[position] is TrendingMovie
+			= items[position] is TrendingMovie
 
 	inner class TrendingMovieViewHolder(val v: View) : RecyclerView.ViewHolder(v) {
 
@@ -57,8 +58,7 @@ class TrendingMovieAdapterDelegate(
 				}
 
 				it.imageUrl?.let {
-					com.bumptech.glide.Glide
-							.with(context)
+					Glide.with(context)
 							.load(it)
 							.diskCacheStrategy(DiskCacheStrategy.SOURCE)
 							.into(itemView.image)

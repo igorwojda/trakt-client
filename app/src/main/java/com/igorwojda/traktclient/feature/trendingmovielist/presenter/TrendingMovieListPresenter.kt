@@ -15,9 +15,7 @@ import javax.inject.Inject
 class TrendingMovieListPresenter @Inject constructor(private val repository: TrendingMovieListRepository) : BasePresenter<TrendingMovieListContract.View>() {
 	private var trendingMovies: List<TrendingMovie>? = null
 
-	fun loadTrendingMovies() {
-		trendingMovies?.let { showTrendingMovies(it) } ?: loadTrendingMoviesFromModel()
-	}
+	fun loadTrendingMovies() = trendingMovies?.let { showTrendingMovies(it) } ?: loadTrendingMoviesFromModel()
 
 	private fun loadTrendingMoviesFromModel(){
 		val subscription = repository.trending()
@@ -43,7 +41,6 @@ class TrendingMovieListPresenter @Inject constructor(private val repository: Tre
 
 	override fun attachView(view: TrendingMovieListContract.View?) {
 		super.attachView(view)
-
-		loadTrendingMovies()
+		view?.loadData(false)
 	}
 }

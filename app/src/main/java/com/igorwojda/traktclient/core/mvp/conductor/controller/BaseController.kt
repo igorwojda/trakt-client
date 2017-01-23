@@ -11,7 +11,7 @@ import kotlin.properties.Delegates
 
 //public abstract class MvpLceController<CV extends View, M, V extends MvpLceView<M>, P extends MvpPresenter<V>>
 
-abstract class BaseController<CV : View, M, V:MvpLceView<M>, P : MvpPresenter<V>> protected constructor(args: Bundle?) : MvpLceController<CV, M, V, P>(args) {
+abstract class BaseController<CV : View, M, V:MvpLceView<M>, P : MvpPresenter<V>>(args: Bundle?) : MvpLceController<CV, M, V, P>(args) {
 
 	protected val actionBar: ActionBar?
 		get() = (router?.activity as AppCompatActivity?)?.supportActionBar

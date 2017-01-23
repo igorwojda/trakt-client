@@ -8,9 +8,9 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.igorwojda.traktclient.R
 import com.igorwojda.traktclient.core.api.trakt.entities.Movie
+import com.igorwojda.traktclient.core.extension.Bundle
 import com.igorwojda.traktclient.core.mvp.conductor.controller.BaseController
 import com.igorwojda.traktclient.feature.movie.MovieContract
-import com.igorwojda.traktclient.feature.movie.model.MovieRepository
 import com.igorwojda.traktclient.feature.movie.presenter.MoviePresenter
 import kotlinx.android.synthetic.main.controller_movie.view.*
 
@@ -20,26 +20,28 @@ import kotlinx.android.synthetic.main.controller_movie.view.*
  * Created by Panel on 14.01.2017
  */
 //Todo w dobr stonre MovieContract.View, a nie MovieContract.Presenter?
-class MovieController(args: Bundle? = null) : BaseController<ViewGroup, Movie, MovieContract.View, MoviePresenter>(args),
+class MovieController(args: Bundle) : BaseController<ViewGroup, Movie, MovieContract.View, MoviePresenter>(args),
 		MovieContract.View {
 
-	lateinit var movie: Movie
+	constructor(movieTraktId: String) : this(Bundle {
+		putString(KEY_MOVIE_TRAKT_ID, movieTraktId)
+	})
 
-	constructor(movie: Movie) : this(Bundle()) {
-		this.movie = movie
+	companion object {
+		private val KEY_MOVIE_TRAKT_ID = "MovieController.MOVIE_TRAKT_ID"
 	}
 
-	//Todo:
-	override fun loadData(pullToRefresh: Boolean) = presenter.getMovie(movie)
+	override fun loadData(pullToRefresh: Boolean) {
+		val movieTraktId = args.getString(KEY_MOVIE_TRAKT_ID)
+		presenter.loadMovie(movieTraktId)
+	}
 
-	override fun setData(data: Movie) {
-		movie = data
+	override fun setData(movie: Movie) {
 
 		val localView = view ?: return
 
 		movie.imageUrl?.let {
-			Glide
-					.with(localView.context)
+			Glide.with(localView.context)
 					.load(it)
 					.diskCacheStrategy(DiskCacheStrategy.SOURCE)
 					.into(localView.image)
@@ -55,12 +57,11 @@ class MovieController(args: Bundle? = null) : BaseController<ViewGroup, Movie, M
 	}
 
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View {
-		val view = inflater.inflate(R.layout.controller_movie, container, false)
-		return view
+		return inflater.inflate(R.layout.controller_movie, container, false)
 	}
 
 	override fun getErrorMessage(e: Throwable?, pullToRefresh: Boolean)
 			= resources?.getString(R.string.error) ?: ""
 
-	override fun createPresenter(): MoviePresenter = MoviePresenter(movie, MovieRepository()) //daggerComponent.moviePresenter()
+	override fun createPresenter(): MoviePresenter = MoviePresenter() //daggerComponent.moviePresenter()
 }
