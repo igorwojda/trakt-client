@@ -9,7 +9,7 @@ import com.hannesdorfmann.mosby.mvp.conductor.lce.MvpLceController
 import com.hannesdorfmann.mosby.mvp.lce.MvpLceView
 import kotlin.properties.Delegates
 
-//public abstract class MvpLceController<CV extends View, M, V extends MvpLceView<M>, P extends MvpPresenter<V>>
+//public abstract class MvpLceController<CV extends TrendingMovieListView, M, V extends MvpLceView<M>, P extends MvpPresenter<V>>
 
 abstract class BaseController<CV : View, M, V:MvpLceView<M>, P : MvpPresenter<V>>(args: Bundle?) : MvpLceController<CV, M, V, P>(args) {
 

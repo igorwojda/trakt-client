@@ -10,7 +10,6 @@ import com.igorwojda.traktclient.R
 import com.igorwojda.traktclient.core.api.trakt.entities.Movie
 import com.igorwojda.traktclient.core.extension.Bundle
 import com.igorwojda.traktclient.core.mvp.conductor.controller.BaseController
-import com.igorwojda.traktclient.feature.movie.MovieContract
 import com.igorwojda.traktclient.feature.movie.presenter.MoviePresenter
 import kotlinx.android.synthetic.main.controller_movie.view.*
 
@@ -19,9 +18,9 @@ import kotlinx.android.synthetic.main.controller_movie.view.*
 /**
  * Created by Panel on 14.01.2017
  */
-//Todo w dobr stonre MovieContract.View, a nie MovieContract.Presenter?
-class MovieController(args: Bundle) : BaseController<ViewGroup, Movie, MovieContract.View, MoviePresenter>(args),
-		MovieContract.View {
+//Todo w dobr stonre MovieView.TrendingMovieListView, a nie MovieView.Presenter?
+class MovieController(args: Bundle) : BaseController<ViewGroup, Movie, MovieView, MoviePresenter>(args),
+		MovieView {
 
 	constructor(movieTraktId: String) : this(Bundle {
 		putString(KEY_MOVIE_TRAKT_ID, movieTraktId)
