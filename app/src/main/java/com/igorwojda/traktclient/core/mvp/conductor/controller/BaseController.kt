@@ -16,7 +16,7 @@ abstract class BaseController<CV : View, M, V:MvpLceView<M>, P : MvpPresenter<V>
 	protected val actionBar: ActionBar?
 		get() = (router?.activity as AppCompatActivity?)?.supportActionBar
 
-	var title:String by Delegates.observable("title") {
+	var title:String by Delegates.observable("") {
 		prop, old, new -> updateTitle()
 	}
 

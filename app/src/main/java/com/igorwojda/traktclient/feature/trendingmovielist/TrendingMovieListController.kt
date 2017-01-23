@@ -38,7 +38,6 @@ class TrendingMovieListController (args: Bundle? = null): BaseController<Recycle
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View {
 		val view = inflater.inflate(R.layout.controller_trending_movie, container, false)
 
-
 		val delegatesManager = AdapterDelegatesManager<List<TrendingMovie>>()
 				.addDelegate(TrendingMovieAdapterDelegate(inflater, { showMovie(it) }))
 
@@ -47,7 +46,14 @@ class TrendingMovieListController (args: Bundle? = null): BaseController<Recycle
 		contentView.adapter = adapter
 		contentView.layoutManager = LinearLayoutManager(activity)
 
+		title = resources?.getString(R.string.trendngMovies) ?: ""
+
 		return view
+	}
+
+	override fun onAttach(view: View) {
+		super.onAttach(view)
+		title = resources?.getString(R.string.trendngMovies) ?: ""
 	}
 
 //	private fun showMovie(trendingMovie: TrendingMovie) = trendingMovie.movie?.let { navigator.showMovie(it) }

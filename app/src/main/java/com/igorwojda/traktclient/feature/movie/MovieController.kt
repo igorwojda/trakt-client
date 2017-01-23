@@ -42,7 +42,7 @@ class MovieController(args: Bundle? = null) : BaseController<ViewGroup, Movie, M
 					.into(localView.image)
 		}
 
-//		movie.title?.let { title = it }
+		movie.title?.let { title = it }
 
 		movie.genres?.let {
 			val genres = it.joinToString(separator = " | ")
