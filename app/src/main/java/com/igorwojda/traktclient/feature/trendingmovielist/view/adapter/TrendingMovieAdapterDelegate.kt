@@ -12,16 +12,12 @@ import com.igorwojda.traktclient.core.api.trakt.entities.Movie
 import com.igorwojda.traktclient.core.api.trakt.entities.TrendingMovie
 import kotlinx.android.synthetic.main.item_trending_movie.view.*
 
-/**
- * Created by Panel on 22.01.2017
- */
-
 class TrendingMovieAdapterDelegate(
 		private val inflater: LayoutInflater,
 		private val clickListener: (TrendingMovie) -> Unit) : AdapterDelegate<List<TrendingMovie>>() {
 
 	override fun onBindViewHolder(items: List<TrendingMovie>, position: Int, holder: RecyclerView.ViewHolder, payloads: MutableList<Any>) {
-		(holder as TrendingMovieViewHolder).let { it.bind(items[position]) }
+		(holder as TrendingMovieViewHolder).bind(items[position])
 	}
 
 	override fun onCreateViewHolder(parent: ViewGroup?): RecyclerView.ViewHolder
@@ -30,7 +26,7 @@ class TrendingMovieAdapterDelegate(
 	override fun isForViewType(items: List<TrendingMovie>, position: Int)
 			= items[position] is TrendingMovie
 
-	inner class TrendingMovieViewHolder(val v: View) : RecyclerView.ViewHolder(v) {
+	inner class TrendingMovieViewHolder(v: View) : RecyclerView.ViewHolder(v) {
 
 		lateinit var item: TrendingMovie
 

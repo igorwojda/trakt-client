@@ -13,12 +13,6 @@ import com.igorwojda.traktclient.core.mvp.conductor.controller.BaseController
 import com.igorwojda.traktclient.feature.movie.presenter.MoviePresenter
 import kotlinx.android.synthetic.main.controller_movie.view.*
 
-//import com.igorwojda.traktclient.core.extensions.Bundle
-
-/**
- * Created by Panel on 14.01.2017
- */
-//Todo w dobr stonre MovieView.TrendingMovieListView, a nie MovieView.Presenter?
 class MovieController(args: Bundle) : BaseController<ViewGroup, Movie, MovieView, MoviePresenter>(args),
 		MovieView {
 

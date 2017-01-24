@@ -7,10 +7,6 @@ import com.igorwojda.traktclient.feature.movie.view.MovieView
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
 
-/**
- * Created by Panel on 22.01.2017
- */
-//Todo: change TrendingMovieListRepository - inject?
 class MoviePresenter : BasePresenter<MovieView>() {
 
 	private val repository: MovieRepository = MovieRepository()

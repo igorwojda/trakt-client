@@ -5,9 +5,6 @@ import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormatter
 import org.joda.time.format.ISODateTimeFormat
 
-/**
- * Created by Panel on 13.01.2017
- */
 object TraktGsonHelper {
 	private val ISO_8601_WITH_MILLIS: DateTimeFormatter = ISODateTimeFormat.dateTimeParser().withZoneUTC()
 

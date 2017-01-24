@@ -4,9 +4,6 @@ import com.igorwojda.traktclient.core.api.trakt.TrakAPI
 import okhttp3.Interceptor
 import okhttp3.Response
 
-/**
- * Created by Panel on 13.01.2017
- */
 class TraktRequestInterceptor(private val trakt: TrakAPI) : Interceptor {
 
 	override fun intercept(chain: Interceptor.Chain): Response {

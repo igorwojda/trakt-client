@@ -14,9 +14,6 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
-/**
- * Created by Panel on 13.01.2017
- */
 class TrakAPI(val apiKey: String, private val clientSecret: String) {
 	companion object {
 		val API_URL = "https://api.trakt.tv/"

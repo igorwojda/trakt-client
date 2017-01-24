@@ -6,9 +6,6 @@ import com.google.gson.JsonDeserializer
 import com.google.gson.JsonElement
 import java.lang.reflect.Type
 
-/**
- * Created by Panel on 13.01.2017
- */
 class WeMakeSitesDataDeserializer<T : Any> :JsonDeserializer<T> {
 
 	override fun deserialize(json: JsonElement?, typeOfT: Type?, context: JsonDeserializationContext?): T {

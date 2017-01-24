@@ -8,9 +8,6 @@ import okhttp3.Response
 import okhttp3.Route
 import java.io.IOException
 
-/**
- * Created by Panel on 13.01.2017
- */
 class TraktAuthenticator(val trakt: TrakAPI) : Authenticator {
 
 	@Throws(IOException::class)

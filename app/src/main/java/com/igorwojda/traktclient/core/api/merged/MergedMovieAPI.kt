@@ -7,9 +7,6 @@ import com.igorwojda.traktclient.core.api.trakt.enums.Extended
 import rx.Observable
 import rx.schedulers.Schedulers
 
-/**
- * Created by Panel on 15.01.2017
- */
 class MergedMovieAPI {
 
 	private var trakAPI = TraktClientApplication.trakAPI

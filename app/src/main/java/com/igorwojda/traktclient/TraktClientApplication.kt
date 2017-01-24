@@ -7,10 +7,6 @@ import com.igorwojda.traktclient.core.cache.DiskCache
 import com.squareup.leakcanary.LeakCanary
 import com.squareup.leakcanary.RefWatcher
 
-
-/**
- * Created by Panel on 14.08.2016
- */
 class TraktClientApplication : Application() {
 
 	companion object{

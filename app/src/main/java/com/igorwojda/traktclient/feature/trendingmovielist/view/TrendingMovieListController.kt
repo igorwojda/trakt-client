@@ -6,21 +6,14 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.bluelinelabs.conductor.RouterTransaction
-import com.bluelinelabs.conductor.changehandler.HorizontalChangeHandler
 import com.hannesdorfmann.adapterdelegates3.AdapterDelegatesManager
 import com.hannesdorfmann.adapterdelegates3.ListDelegationAdapter
 import com.igorwojda.traktclient.R
 import com.igorwojda.traktclient.core.api.trakt.entities.TrendingMovie
 import com.igorwojda.traktclient.core.mvp.conductor.controller.BaseController
-import com.igorwojda.traktclient.feature.movie.view.MovieController
 import com.igorwojda.traktclient.feature.trendingmovielist.model.TrendingMovieListRepository
 import com.igorwojda.traktclient.feature.trendingmovielist.presenter.TrendingMovieListPresenter
 import com.igorwojda.traktclient.feature.trendingmovielist.view.adapter.TrendingMovieAdapterDelegate
-
-/**
- * Created by Panel on 14.01.2017
- */
 
 class TrendingMovieListController(args: Bundle? = null) : BaseController<RecyclerView, List<TrendingMovie>, TrendingMovieListView, TrendingMovieListPresenter>(args),
 		TrendingMovieListView {
@@ -56,17 +49,6 @@ class TrendingMovieListController(args: Bundle? = null) : BaseController<Recycle
 	}
 
 	private fun showMovie(trendingMovie: TrendingMovie) = trendingMovie.movie?.let { presenter.navigateToMovie(it) }
-
-		//ToDo: move to com.hannesdorfmann.mosby.conductor.sample.navigation
-	private fun showMovieLocal(movieTraktId: String) {
-		val handler = HorizontalChangeHandler()
-
-		//ToDO: Pass movie object
-		router.pushController(RouterTransaction.with(MovieController(movieTraktId))
-				.pushChangeHandler(handler)
-				.popChangeHandler(handler)
-		)
-	}
 
 	override fun createPresenter(): TrendingMovieListPresenter = TrendingMovieListPresenter(TrendingMovieListRepository()) //daggerComponent.trendingMoviePresenter()
 

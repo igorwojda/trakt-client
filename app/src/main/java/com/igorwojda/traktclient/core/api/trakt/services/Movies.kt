@@ -8,9 +8,6 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 import rx.Observable
 
-/**
- * Created by Panel on 13.01.2017
- */
 interface Movies {
 	@GET("movies/trending")
 	fun trending(

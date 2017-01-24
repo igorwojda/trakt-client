@@ -10,9 +10,6 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
-/**
- * Created by Panel on 13.01.2017
- */
 class WeMakeSitesAPI(private val apiKey: String) {
 
 	companion object {

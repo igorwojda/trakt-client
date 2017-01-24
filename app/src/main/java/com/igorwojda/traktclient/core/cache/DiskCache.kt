@@ -7,10 +7,6 @@ import com.igorwojda.traktclient.TraktClientApplication
 import com.igorwojda.traktclient.core.api.trakt.entities.Movie
 import com.igorwojda.traktclient.core.api.trakt.entities.TrendingMovie
 
-/**
- * Created by Panel on 15.01.2017
- */
-
 class DiskCache {
 	init {
 

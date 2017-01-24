@@ -6,9 +6,6 @@ import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.POST
 
-/**
- * Created by Panel on 13.01.2017
- */
 interface Authentication {
 
 	@FormUrlEncoded
