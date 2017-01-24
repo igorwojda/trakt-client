@@ -7,7 +7,6 @@ import com.igorwojda.traktclient.core.api.trakt.entities.Movie
 import com.igorwojda.traktclient.feature.movie.view.MovieController
 
 interface Navigator {
-
 	val router: Router
 
 	fun showMovie(movie:Movie) {
@@ -20,5 +19,4 @@ interface Navigator {
 
 		router.pushController(controller)
 	}
-
 }

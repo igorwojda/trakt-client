@@ -7,15 +7,14 @@ import android.view.View
 import com.hannesdorfmann.mosby.mvp.MvpPresenter
 import com.hannesdorfmann.mosby.mvp.conductor.lce.MvpLceController
 import com.hannesdorfmann.mosby.mvp.lce.MvpLceView
-import com.igorwojda.traktclient.core.mvp.conductor.navigation.Navigator
-import javax.inject.Inject
+import com.igorwojda.traktclient.core.mvp.conductor.navigation.PhoneNavigator
 import kotlin.properties.Delegates
 
 //public abstract class MvpLceController<CV extends TrendingMovieListView, M, V extends MvpLceView<M>, P extends MvpPresenter<V>>
 
 abstract class BaseController<CV : View, M, V:MvpLceView<M>, P : MvpPresenter<V>>(args: Bundle?) : MvpLceController<CV, M, V, P>(args) {
 
-	@Inject lateinit var navigator:Navigator
+	val navigator by lazy { PhoneNavigator(router) }
 
 	protected val actionBar: ActionBar?
 		get() = (router?.activity as AppCompatActivity?)?.supportActionBar
