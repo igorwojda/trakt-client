@@ -45,5 +45,5 @@ class TrendingMovieListPresenter @Inject constructor(private val repository: Tre
 		view?.loadData(false)
 	}
 
-	fun navigateToMovie(movie: Movie) = movie?.let { view?.navigator?.showMovie(it) }
+	fun navigateToMovie(movie: Movie) = movie?.let { navigator?.showMovie(it) }
 }
