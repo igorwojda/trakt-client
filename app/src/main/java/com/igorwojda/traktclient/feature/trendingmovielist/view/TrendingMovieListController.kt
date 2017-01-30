@@ -11,7 +11,6 @@ import com.hannesdorfmann.adapterdelegates3.ListDelegationAdapter
 import com.igorwojda.traktclient.R
 import com.igorwojda.traktclient.core.api.trakt.entities.TrendingMovie
 import com.igorwojda.traktclient.core.mvp.conductor.controller.BaseController
-import com.igorwojda.traktclient.feature.trendingmovielist.model.TrendingMovieListRepository
 import com.igorwojda.traktclient.feature.trendingmovielist.presenter.TrendingMovieListPresenter
 import com.igorwojda.traktclient.feature.trendingmovielist.view.adapter.TrendingMovieAdapterDelegate
 
@@ -50,7 +49,7 @@ class TrendingMovieListController(args: Bundle? = null) : BaseController<Recycle
 
 	private fun showMovie(trendingMovie: TrendingMovie) = trendingMovie.movie?.let { presenter.navigateToMovie(it) }
 
-	override fun createPresenter(): TrendingMovieListPresenter = TrendingMovieListPresenter(TrendingMovieListRepository()) //daggerComponent.trendingMoviePresenter()
+	override fun createPresenter(): TrendingMovieListPresenter = TrendingMovieListPresenter() //daggerComponent.trendingMoviePresenter()
 
 	override fun getErrorMessage(e: Throwable?, pullToRefresh: Boolean): String = resources?.getString(
 			R.string.error) ?: ""

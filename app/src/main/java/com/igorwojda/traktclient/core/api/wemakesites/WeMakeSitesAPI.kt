@@ -10,7 +10,7 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
-class WeMakeSitesAPI(private val apiKey: String) {
+class WeMakeSitesApi(private val apiKey: String) {
 
 	companion object {
 		val API_URL = "http://imdb.wemakesites.net/api/"

@@ -14,7 +14,7 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
-class TrakAPI(val apiKey: String, private val clientSecret: String) {
+class TrakApi(val apiKey: String, private val clientSecret: String) {
 	companion object {
 		val API_URL = "https://api.trakt.tv/"
 		val HEADER_AUTHORIZATION = "Authorization"
@@ -67,5 +67,5 @@ class TrakAPI(val apiKey: String, private val clientSecret: String) {
 		return retrofit.create(Movies::class.java)
 	}
 
-	fun getAuthenticationHeaderValue(): String = "${TrakAPI.BEARER_PREFIX} $accessToken"
+	fun getAuthenticationHeaderValue(): String = "${TrakApi.BEARER_PREFIX} $accessToken"
 }

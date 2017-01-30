@@ -8,10 +8,6 @@ import com.igorwojda.traktclient.core.api.trakt.entities.Movie
 import com.igorwojda.traktclient.core.api.trakt.entities.TrendingMovie
 
 class DiskCache {
-	init {
-
-	}
-
 	private val CACHE_SIZE = 100
 
 	private val storeProvider by lazy { StoreProvider.withContext(TraktClientApplication.instance).inDir("storeProvider").using(MoshiConverter()) }

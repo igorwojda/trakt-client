@@ -7,7 +7,7 @@ import com.igorwojda.traktclient.core.api.trakt.enums.Extended
 import rx.Observable
 import rx.schedulers.Schedulers
 
-class MergedMovieAPI {
+class MergedMovieApi {
 
 	private var trakAPI = TraktClientApplication.trakAPI
 	private val weMakeSitesAPI = TraktClientApplication.weMakeSitesAPI
