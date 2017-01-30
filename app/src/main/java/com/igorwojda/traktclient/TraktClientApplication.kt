@@ -4,6 +4,10 @@ import android.app.Application
 import com.igorwojda.traktclient.core.api.trakt.TrakApi
 import com.igorwojda.traktclient.core.api.wemakesites.WeMakeSitesApi
 import com.igorwojda.traktclient.core.cache.DiskCache
+import com.igorwojda.traktclient.core.dagger.component.ApplicationComponent
+import com.igorwojda.traktclient.core.dagger.component.DaggerApplicationComponent
+import com.igorwojda.traktclient.core.dagger.module.PresenterModule
+import com.igorwojda.traktclient.core.dagger.module.RepositoryModule
 import com.squareup.leakcanary.LeakCanary
 import com.squareup.leakcanary.RefWatcher
 
@@ -22,6 +26,10 @@ class TraktClientApplication : Application() {
 		val weMakeSitesAPI by lazy { WeMakeSitesApi("a577382c-22b2-4a70-8ed4-efd50f945b8b") }
 
 		val diskCache by lazy { DiskCache() }
+
+		@JvmStatic val applicationComponent: ApplicationComponent = DaggerApplicationComponent.builder()
+				.presenterModule(PresenterModule(RepositoryModule()))
+				.build()
 	}
 
 	override fun onCreate() {

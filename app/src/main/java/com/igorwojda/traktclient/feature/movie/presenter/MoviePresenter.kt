@@ -1,7 +1,6 @@
 package com.igorwojda.traktclient.feature.movie.presenter
 
 import com.igorwojda.traktclient.core.api.trakt.entities.Movie
-import com.igorwojda.traktclient.core.dagger.component.DaggerApplicationComponent
 import com.igorwojda.traktclient.core.mvp.mosby.BasePresenter
 import com.igorwojda.traktclient.feature.movie.model.MovieRepository
 import com.igorwojda.traktclient.feature.movie.view.MovieView
@@ -9,15 +8,7 @@ import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
 import javax.inject.Inject
 
-class MoviePresenter : BasePresenter<MovieView>() {
-
-	@Inject lateinit var repository: MovieRepository
-
-	init {
-		DaggerApplicationComponent.builder()
-				.build()
-				.inject(this)
-	}
+class MoviePresenter @Inject constructor(var repository: MovieRepository) : BasePresenter<MovieView>() {
 
 	fun loadMovie(movieTraktId: String) {
 		val subscription = repository.movie(movieTraktId)

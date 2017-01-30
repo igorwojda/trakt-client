@@ -56,5 +56,5 @@ class MovieController(args: Bundle) : BaseController<ViewGroup, Movie, MovieView
 	override fun getErrorMessage(e: Throwable?, pullToRefresh: Boolean)
 			= resources?.getString(R.string.error) ?: ""
 
-	override fun createPresenter(): MoviePresenter = MoviePresenter() //daggerComponent.moviePresenter()
+	override fun createPresenter() = applicationComponent.moviePresenter()
 }

@@ -2,7 +2,6 @@ package com.igorwojda.traktclient.feature.trendingmovielist.presenter
 
 import com.igorwojda.traktclient.core.api.trakt.entities.Movie
 import com.igorwojda.traktclient.core.api.trakt.entities.TrendingMovie
-import com.igorwojda.traktclient.core.dagger.component.DaggerApplicationComponent
 import com.igorwojda.traktclient.core.mvp.mosby.BasePresenter
 import com.igorwojda.traktclient.feature.trendingmovielist.model.TrendingMovieListRepository
 import com.igorwojda.traktclient.feature.trendingmovielist.view.TrendingMovieListView
@@ -10,20 +9,13 @@ import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
 import javax.inject.Inject
 
-class TrendingMovieListPresenter @Inject constructor() : BasePresenter<TrendingMovieListView>() {
+class TrendingMovieListPresenter @Inject constructor(var repository: TrendingMovieListRepository) : BasePresenter<TrendingMovieListView>() {
 
-	@Inject lateinit var repository: TrendingMovieListRepository
 	var trendingMovies: List<TrendingMovie>? = null
-
-	init {
-		DaggerApplicationComponent.builder()
-				.build()
-				.inject(this)
-	}
 
 	fun loadTrendingMovies() = trendingMovies?.let { showTrendingMovies(it) } ?: loadTrendingMoviesFromModel()
 
-	private fun loadTrendingMoviesFromModel(){
+	private fun loadTrendingMoviesFromModel() {
 		val subscription = repository.trending()
 				.subscribeOn(Schedulers.newThread())
 				.observeOn(AndroidSchedulers.mainThread())
@@ -40,7 +32,7 @@ class TrendingMovieListPresenter @Inject constructor() : BasePresenter<TrendingM
 		compositeSubscription.add(subscription)
 	}
 
-	private fun showTrendingMovies(list: List<TrendingMovie>){
+	private fun showTrendingMovies(list: List<TrendingMovie>) {
 		view?.setData(list)
 		view?.showContent()
 	}

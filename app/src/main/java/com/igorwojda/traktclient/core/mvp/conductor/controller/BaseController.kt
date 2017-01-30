@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import com.hannesdorfmann.mosby.mvp.MvpPresenter
 import com.hannesdorfmann.mosby.mvp.lce.MvpLceView
+import com.igorwojda.traktclient.TraktClientApplication
 import com.igorwojda.traktclient.core.mvp.conductor.navigation.PhoneNavigator
 import kotlin.properties.Delegates
 
@@ -14,6 +15,7 @@ import kotlin.properties.Delegates
 abstract class BaseController<CV : View, M, V:MvpLceView<M>, P : MvpPresenter<V>>(args: Bundle?) : RefWatchingController<CV, M, V, P>(args) {
 
 	val navigator by lazy { PhoneNavigator(router) }
+	val applicationComponent by lazy { TraktClientApplication.applicationComponent }
 
 	protected val actionBar: ActionBar?
 		get() = (router?.activity as AppCompatActivity?)?.supportActionBar
