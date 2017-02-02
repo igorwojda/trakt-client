@@ -1,23 +1,23 @@
 package com.igorwojda.traktclient.feature.trendingmovielist.presenter
 
-import com.igorwojda.traktclient.core.api.trakt.entities.Movie
-import com.igorwojda.traktclient.core.api.trakt.entities.TrendingMovie
 import com.igorwojda.traktclient.core.mvp.mosby.BasePresenter
+import com.igorwojda.traktclient.core.net.trakt.entity.Movie
+import com.igorwojda.traktclient.core.net.trakt.entity.TrendingMovie
 import com.igorwojda.traktclient.feature.trendingmovielist.model.TrendingMovieListRepository
 import com.igorwojda.traktclient.feature.trendingmovielist.view.TrendingMovieListView
-import rx.android.schedulers.AndroidSchedulers
-import rx.schedulers.Schedulers
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class TrendingMovieListPresenter @Inject constructor(var repository: TrendingMovieListRepository) : BasePresenter<TrendingMovieListView>() {
 
-	var trendingMovies: List<TrendingMovie>? = null
+	private var trendingMovies: List<TrendingMovie>? = null
 
-	fun loadTrendingMovies() = trendingMovies?.let { showTrendingMovies(it) } ?: loadTrendingMoviesFromModel()
+	fun loadTrendingMovies() = trendingMovies?.let { showTrendingMovies(it) } ?: loadTrendingMoviesFromRepository()
 
-	private fun loadTrendingMoviesFromModel() {
+	private fun loadTrendingMoviesFromRepository() {
 		val subscription = repository.trending()
-				.subscribeOn(Schedulers.newThread())
+				.subscribeOn(Schedulers.io())
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribe(
 						{
@@ -29,7 +29,7 @@ class TrendingMovieListPresenter @Inject constructor(var repository: TrendingMov
 						}
 				)
 
-		compositeSubscription.add(subscription)
+		addSubscription(subscription)
 	}
 
 	private fun showTrendingMovies(list: List<TrendingMovie>) {
@@ -42,5 +42,5 @@ class TrendingMovieListPresenter @Inject constructor(var repository: TrendingMov
 		view?.loadData(false)
 	}
 
-	fun navigateToMovie(movie: Movie) = movie?.let { navigator?.showMovie(it) }
+	fun navigateToMovie(movie: Movie) = movie.let { navigator?.showMovie(it) }
 }

@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.igorwojda.traktclient.R
-import com.igorwojda.traktclient.core.api.trakt.entities.Movie
+import com.igorwojda.traktclient.core.net.trakt.entity.Movie
 import com.igorwojda.traktclient.core.extension.Bundle
 import com.igorwojda.traktclient.core.mvp.conductor.controller.BaseController
 import com.igorwojda.traktclient.feature.movie.presenter.MoviePresenter

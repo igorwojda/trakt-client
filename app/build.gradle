@@ -12,7 +12,8 @@ android {
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+//        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "com.igorwojda.traktclient.core.TraktClientJUnitRunner"
     }
     buildTypes {
         release {
@@ -46,11 +47,11 @@ dependencies {
     }
 
     //Support
-    compile 'com.android.support:appcompat-v7:25.1.0'
+    compile 'com.android.support:appcompat-v7:25.1.1'
     compile 'net.vrallev.android:cat:1.0.5'
-    compile 'com.android.support:design:25.1.0'
-    compile 'com.android.support:recyclerview-v7:25.1.0'
-    compile 'com.android.support:support-v4:25.1.0'
+    compile 'com.android.support:design:25.1.1'
+    compile 'com.android.support:recyclerview-v7:25.1.1'
+    compile 'com.android.support:support-v4:25.1.1'
 
     //Leak Canary
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
@@ -60,18 +61,11 @@ dependencies {
     //Retrofit
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
-    compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
+    compile 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.5.0'
 
-    //Rx
-    compile 'io.reactivex:rxjava:1.2.5'
-    compile 'io.reactivex:rxandroid:1.2.1'
-    compile 'io.reactivex:rxkotlin:0.60.0'
-
-    //RxStore
-    compile ('au.com.gridstone.rxstore:rxstore:5.0.5') { exclude group: 'org.jetbrains'}
-    compile ('au.com.gridstone.rxstore:rxstore-kotlin:5.0.5') { exclude group: 'org.jetbrains'}
-    compile ('au.com.gridstone.rxstore:converter-moshi:5.0.5') { exclude group: 'org.jetbrains'}
+    compile 'io.reactivex.rxjava2:rxjava:2.0.5'
+    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
 
     //MVP
     compile 'com.bluelinelabs:conductor:2.0.7'
@@ -81,6 +75,10 @@ dependencies {
     kapt 'com.google.dagger:dagger-compiler:2.8'
     kaptTest 'com.google.dagger:dagger-compiler:2.8'
     kaptAndroidTest 'com.google.dagger:dagger-compiler:2.8'
+
+    //Mockito
+    testCompile "org.mockito:mockito-core:2.7.0"
+    androidTestCompile "org.mockito:mockito-core:2.7.0"
 
     //Other
     compile 'com.hannesdorfmann:adapterdelegates3:3.0.1'

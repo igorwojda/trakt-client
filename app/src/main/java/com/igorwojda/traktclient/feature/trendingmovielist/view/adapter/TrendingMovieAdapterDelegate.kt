@@ -8,8 +8,8 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.hannesdorfmann.adapterdelegates3.AdapterDelegate
 import com.igorwojda.traktclient.R
-import com.igorwojda.traktclient.core.api.trakt.entities.Movie
-import com.igorwojda.traktclient.core.api.trakt.entities.TrendingMovie
+import com.igorwojda.traktclient.core.net.trakt.entity.Movie
+import com.igorwojda.traktclient.core.net.trakt.entity.TrendingMovie
 import kotlinx.android.synthetic.main.item_trending_movie.view.*
 
 class TrendingMovieAdapterDelegate(
@@ -41,17 +41,12 @@ class TrendingMovieAdapterDelegate(
 			val context = inflater.context
 			val resources = inflater.context.resources
 
-			item.watchers?.let {
-				itemView.watchers.text = resources?.getString(R.string.watchers, it)
-			}
+			item.watchers?.let { itemView.watchers.text = resources?.getString(R.string.watchers, it) }
 
 			movie?.let {
-				//ToDo use with?
 				it.title?.let { itemView.title.text = it }
 
-				it.released?.let {
-					itemView.releaseDate.text = resources?.getString(R.string.release, it)
-				}
+				it.released?.let { itemView.releaseDate.text = resources?.getString(R.string.release, it) }
 
 				it.imageUrl?.let {
 					Glide.with(context)

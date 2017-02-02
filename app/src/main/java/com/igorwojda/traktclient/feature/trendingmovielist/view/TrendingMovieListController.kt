@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import com.hannesdorfmann.adapterdelegates3.AdapterDelegatesManager
 import com.hannesdorfmann.adapterdelegates3.ListDelegationAdapter
 import com.igorwojda.traktclient.R
-import com.igorwojda.traktclient.core.api.trakt.entities.TrendingMovie
+import com.igorwojda.traktclient.core.net.trakt.entity.TrendingMovie
 import com.igorwojda.traktclient.core.mvp.conductor.controller.BaseController
 import com.igorwojda.traktclient.feature.trendingmovielist.presenter.TrendingMovieListPresenter
 import com.igorwojda.traktclient.feature.trendingmovielist.view.adapter.TrendingMovieAdapterDelegate
