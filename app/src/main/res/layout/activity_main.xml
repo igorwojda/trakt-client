@@ -9,7 +9,7 @@
     tools:context="com.igorwojda.traktclient.MainActivity">
 
     <com.bluelinelabs.conductor.ChangeHandlerFrameLayout
-        android:id="@+id/contentView"
+        android:id="@+id/mainContentView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="appbar_scrolling_view_behavior"

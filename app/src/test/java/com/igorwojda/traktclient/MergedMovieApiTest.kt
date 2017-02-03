@@ -5,12 +5,10 @@ import com.igorwojda.traktclient.core.net.trakt.TrakApi
 import com.igorwojda.traktclient.core.net.trakt.entity.MovieIds
 import com.igorwojda.traktclient.core.net.trakt.entity.TrendingMovie
 import com.igorwojda.traktclient.core.net.trakt.enum.Extended
-import com.igorwojda.traktclient.core.net.trakt.service.Movies
 import com.igorwojda.traktclient.core.net.wemakesites.WeMakeSitesApi
 import com.igorwojda.traktclient.core.rule.ImmediateSchedulerRule
 import io.reactivex.Observable
 import io.reactivex.Single
-import io.reactivex.subscribers.TestSubscriber
 import org.junit.Rule
 import org.junit.Test
 import org.mockito.ArgumentMatchers.anyString
@@ -29,11 +27,8 @@ class MergedMovieApiTest {
 
 	@Mock lateinit var traktApi: TrakApi
 	@Mock lateinit var weMakeSitesApi: WeMakeSitesApi
-	@Mock lateinit var movies: Movies
 
 	@InjectMocks lateinit var mergedMovieApi: MergedMovieApi
-
-	private val testSubscriber = TestSubscriber<List<TrendingMovie>>()
 
 	@Test
 	fun testMovieSubscribe_merge_imageUrl() {

@@ -9,13 +9,13 @@ import com.igorwojda.traktclient.core.net.trakt.service.Authentication
 import com.igorwojda.traktclient.core.net.trakt.service.Movies
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
-class TrakApi(val apiKey: String, private val clientSecret: String) {
+//@TestOpen
+open class TrakApi(val apiKey: String, private val clientSecret: String) {
 	companion object {
 		val API_URL = "https://api.trakt.tv/"
 		val HEADER_AUTHORIZATION = "Authorization"
@@ -28,13 +28,9 @@ class TrakApi(val apiKey: String, private val clientSecret: String) {
 	}
 
 	private val okHttpClient by lazy {
-		val logging = HttpLoggingInterceptor()
-		logging.level = HttpLoggingInterceptor.Level.BODY
-
 		OkHttpClient.Builder()
 				.addNetworkInterceptor(TraktRequestInterceptor(this))
 				.authenticator(TraktAuthenticator(this))
-				.addInterceptor(logging)
 				.connectTimeout(3, TimeUnit.SECONDS)
 				.build()
 	}
