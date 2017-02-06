@@ -12,6 +12,7 @@ import io.reactivex.Single
 import org.junit.Rule
 import org.junit.Test
 import org.mockito.ArgumentMatchers.anyString
+import org.mockito.BDDMockito.given
 import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.Mockito.`when`
@@ -57,11 +58,11 @@ class MergedMovieApiTest {
 	fun testTrendingMoviesSubscribe_merge_imageUrl() {
 		/* Given */
 
-		`when`(traktApi.trendingMovies())
-				.thenReturn(Single.just(getFakeTrendingMovies()))
+		given(traktApi.trendingMovies())
+				.willReturn(Single.just(getFakeTrendingMovies()))
 
-		`when`(weMakeSitesApi.movie(anyString()))
-				.thenAnswer { getFakeWeMakeSitesMovie(it.getArgument(0)) }
+		given(weMakeSitesApi.movie(anyString()))
+				.willAnswer { getFakeWeMakeSitesMovie(it.getArgument(0)) }
 
 		/* When */
 		val testObserver = mergedMovieApi.trendingMovies().test()
