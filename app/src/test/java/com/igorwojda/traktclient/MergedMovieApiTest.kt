@@ -56,7 +56,6 @@ class MergedMovieApiTest {
 	@Test
 	fun testTrendingMoviesSubscribe_merge_imageUrl() {
 		/* Given */
-
 		given(traktApi.trendingMovies())
 				.willReturn(Single.just(getFakeTrendingMovies()))
 
