@@ -15,7 +15,6 @@ import org.mockito.ArgumentMatchers.anyString
 import org.mockito.BDDMockito.given
 import org.mockito.InjectMocks
 import org.mockito.Mock
-import org.mockito.Mockito.`when`
 import org.mockito.junit.MockitoJUnit
 import org.mockito.junit.MockitoRule
 import com.igorwojda.traktclient.core.net.trakt.entity.Movie as TraktMovie
@@ -34,11 +33,11 @@ class MergedMovieApiTest {
 	@Test
 	fun testMovieSubscribe_merge_imageUrl() {
 		/* Given */
-		`when`(traktApi.summary("traktId-1", Extended.FULL))
-				.thenReturn(Single.just(getFakeTraktMovie("traktId-1")))
+		given(traktApi.summary("traktId-1", Extended.FULL))
+				.willReturn(Single.just(getFakeTraktMovie("traktId-1")))
 
-		`when`(weMakeSitesApi.movie("imdbId-1"))
-				.thenAnswer { getFakeWeMakeSitesMovie(it.getArgument(0)) }
+		given(weMakeSitesApi.movie("imdbId-1"))
+				.willAnswer { getFakeWeMakeSitesMovie(it.getArgument(0)) }
 
 		/* When */
 		val testObserver = mergedMovieApi.movie("traktId-1").test()
