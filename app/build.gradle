@@ -3,6 +3,8 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
+defaultTasks 'dependencyUpdates'
+
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
@@ -78,7 +80,7 @@ dependencies {
     compile 'com.hannesdorfmann.mosby:mvp-conductor:0.8.2'
 
     //Dagger
-    compile 'com.google.dagger:dagger:2.9'
+    compile "com.google.dagger:dagger:$dagger_version"
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
     kaptTest "com.google.dagger:dagger-compiler:$dagger_version"
     kaptAndroidTest "com.google.dagger:dagger-compiler:$dagger_version"
