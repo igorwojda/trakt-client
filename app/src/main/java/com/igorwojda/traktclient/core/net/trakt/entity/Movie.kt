@@ -1,5 +1,8 @@
 package com.igorwojda.traktclient.core.net.trakt.entity
 
+import com.igorwojda.traktclient.core.annotation.TestOpen
+
+@TestOpen
 class Movie {
 	var title: String? = null
 	var overview: String? = null

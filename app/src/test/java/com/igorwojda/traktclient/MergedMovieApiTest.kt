@@ -16,13 +16,14 @@ import org.mockito.BDDMockito.given
 import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.junit.MockitoJUnit
-import org.mockito.junit.MockitoRule
+import org.mockito.quality.Strictness
 import com.igorwojda.traktclient.core.net.trakt.entity.Movie as TraktMovie
 import com.igorwojda.traktclient.core.net.wemakesites.entity.Movie as WeMakeSitesMovie
 
 class MergedMovieApiTest {
 
-	@JvmField @Rule var rule: MockitoRule = MockitoJUnit.rule()
+	@JvmField @Rule var rule = MockitoJUnit.rule().strictness(Strictness.STRICT_STUBS)
+
 	@JvmField @Rule var immediateSchedulerRule = ImmediateSchedulerRule()
 
 	@Mock lateinit var traktApi: TrakApi
