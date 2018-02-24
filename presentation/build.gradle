@@ -4,12 +4,12 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion 26
     buildToolsVersion '26.0.2'
     defaultConfig {
         applicationId "com.igorwojda.traktclient"
         minSdkVersion 21
-        targetSdkVersion 27
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "com.igorwojda.traktclient.core.TraktClientJUnitRunner"
@@ -36,6 +36,9 @@ ext.mockito_version = '2.15.0'
 ext.leak_canary_version = '1.5.4'
 
 dependencies {
+    implementation project(":domain")
+    implementation project(":data")
+
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile("com.android.support.test.espresso:espresso-contrib:2.2.2") {
         exclude group: 'com.android.support', module: 'appcompat'

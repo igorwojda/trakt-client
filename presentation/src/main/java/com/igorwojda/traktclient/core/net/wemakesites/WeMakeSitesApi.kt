@@ -13,29 +13,29 @@ import java.util.concurrent.TimeUnit
 
 class WeMakeSitesApi(private val apiKey: String) {
 
-	companion object {
-		const val API_URL = "http://imdb.wemakesites.net/api/"
-	}
+    companion object {
+        const val API_URL = "http://imdb.wemakesites.net/api/"
+    }
 
-	private val okHttpClient by lazy {
-		OkHttpClient.Builder()
-				.addNetworkInterceptor(WeMakeSitesRequestInterceptor(apiKey))
-				.connectTimeout(3, TimeUnit.SECONDS)
-				.build()
-	}
+    private val okHttpClient by lazy {
+        OkHttpClient.Builder()
+                .addNetworkInterceptor(WeMakeSitesRequestInterceptor(apiKey))
+                .connectTimeout(3, TimeUnit.SECONDS)
+                .build()
+    }
 
-	private val retrofit by lazy {
-		Retrofit.Builder()
-				.baseUrl(API_URL)
-				.addConverterFactory(GsonConverterFactory.create(WeMakeSitesGsonHelper.createGson()))
-				.addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-				.client(okHttpClient)
-				.build()
-	}
+    private val retrofit by lazy {
+        Retrofit.Builder()
+                .baseUrl(API_URL)
+                .addConverterFactory(GsonConverterFactory.create(WeMakeSitesGsonHelper.createGson()))
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .client(okHttpClient)
+                .build()
+    }
 
-	private val movies: Movies = retrofit.create(Movies::class.java)
+    private val movies: Movies = retrofit.create(Movies::class.java)
 
-	fun movie(resourceId: String): Single<Movie> {
-		return movies.movie(resourceId)
-	}
+    fun movie(resourceId: String): Single<Movie> {
+        return movies.movie(resourceId)
+    }
 }
