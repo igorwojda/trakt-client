@@ -4,10 +4,10 @@ import okhttp3.Response
 
 val Response.numPriorResponses:Int
 	get() {
-		var result = 1
-		var response = this
+		var result = 0
+		var response:Response? = this
 
-		while (response.priorResponse() != null) {
+		while (response != null) {
 			response = response.priorResponse()
 			result++
 		}

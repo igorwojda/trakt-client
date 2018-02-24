@@ -8,7 +8,7 @@ import dagger.Provides
 import javax.inject.Inject
 import javax.inject.Singleton
 
-@Module(includes = arrayOf(NetworkModule::class))
+@Module(includes = [(NetworkModule::class)])
 open class RepositoryModule @Inject constructor() {
 
 	@Singleton @Provides

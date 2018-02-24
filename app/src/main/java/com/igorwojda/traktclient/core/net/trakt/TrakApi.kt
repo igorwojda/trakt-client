@@ -7,24 +7,24 @@ import com.igorwojda.traktclient.core.net.trakt.retrofit.TraktGsonHelper
 import com.igorwojda.traktclient.core.net.trakt.retrofit.TraktRequestInterceptor
 import com.igorwojda.traktclient.core.net.trakt.service.Authentication
 import com.igorwojda.traktclient.core.net.trakt.service.Movies
-import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import okhttp3.OkHttpClient
 import retrofit2.Response
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 //@TestOpen
 open class TrakApi(val apiKey: String, private val clientSecret: String) {
 	companion object {
-		val API_URL = "https://api.trakt.tv/"
-		val HEADER_AUTHORIZATION = "Authorization"
-		val HEADER_CONTENT_TYPE = "Content-Type"
-		val CONTENT_TYPE_JSON = "application/json"
-		val HEADER_TRAKT_API_VERSION = "trakt-api-version"
-		val API_VERSION = "2"
-		val HEADER_TRAKT_API_KEY = "trakt-api-key"
-		val BEARER_PREFIX = "Bearer "
+		const val API_URL = "https://api.trakt.tv/"
+		const val HEADER_AUTHORIZATION = "Authorization"
+		const val HEADER_CONTENT_TYPE = "Content-Type"
+		const val CONTENT_TYPE_JSON = "application/json"
+		const val HEADER_TRAKT_API_VERSION = "trakt-api-version"
+		const val API_VERSION = "2"
+		const val HEADER_TRAKT_API_KEY = "trakt-api-key"
+		const val BEARER_PREFIX = "Bearer "
 	}
 
 	private val okHttpClient by lazy {

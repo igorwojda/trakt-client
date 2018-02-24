@@ -30,8 +30,8 @@ class TraktAuthenticator(val trakt: TrakApi) : Authenticator {
 			if (!refreshResponse.isSuccessful)
 				return null
 
-			trakt.accessToken = refreshResponse.body().access_token
-			trakt.refreshToken = refreshResponse.body().refresh_token
+			trakt.accessToken = refreshResponse.body()?.access_token
+			trakt.refreshToken = refreshResponse.body()?.refresh_token
 
 			// retry request
 			return response.request().newBuilder()

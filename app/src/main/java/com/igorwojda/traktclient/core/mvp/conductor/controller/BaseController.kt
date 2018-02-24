@@ -17,11 +17,11 @@ abstract class BaseController<CV : View, M, V:MvpLceView<M>, P : MvpPresenter<V>
 	val navigator by lazy { PhoneNavigator(router) }
 	val applicationComponent by lazy { TraktClientApplication.applicationComponent }
 
-	protected val actionBar: ActionBar?
+	val actionBar: ActionBar?
 		get() = (router?.activity as AppCompatActivity?)?.supportActionBar
 
 	var title:String by Delegates.observable("") {
-		prop, old, new -> updateTitle()
+		_, _, _ -> updateTitle()
 	}
 
 	override fun onAttach(view: View) {

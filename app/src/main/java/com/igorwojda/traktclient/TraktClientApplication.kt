@@ -1,6 +1,7 @@
 package com.igorwojda.traktclient
 
 import android.app.Application
+import com.facebook.stetho.Stetho
 import com.igorwojda.traktclient.core.dagger.component.ApplicationComponent
 import com.igorwojda.traktclient.core.dagger.component.DaggerApplicationComponent
 import com.squareup.leakcanary.LeakCanary
@@ -10,8 +11,7 @@ open class TraktClientApplication : Application() {
 
 	companion object {
 		lateinit var instance: TraktClientApplication
-
-		private lateinit var refWatcher: RefWatcher
+        private lateinit var refWatcher: RefWatcher
 
 		fun watch(any: Any) = refWatcher.watch(any)
 
@@ -27,6 +27,11 @@ open class TraktClientApplication : Application() {
 			refWatcher = LeakCanary.install(this)
 
 		initDaggerComponents()
+		initStetho()
+	}
+
+	private fun initStetho() {
+		Stetho.initializeWithDefaults(this)
 	}
 
 	protected open fun initDaggerComponents() {

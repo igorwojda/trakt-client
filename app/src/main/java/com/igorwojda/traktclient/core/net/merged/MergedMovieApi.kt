@@ -12,21 +12,15 @@ import javax.inject.Inject
 class MergedMovieApi @Inject constructor(private val trakAPI: TrakApi,
 										 private val weMakeSitesAPI: WeMakeSitesApi) {
 
-	fun trendingMovies(): Single<List<TrendingMovie>> {
-		val network = trakAPI.trendingMovies()
-				.flattenAsObservable { it }
-				.flatMapSingle { loadImageUrl(it) }
-				.toList()
+	fun trendingMovies(): Single<MutableList<TrendingMovie>> =
+            trakAPI.trendingMovies()
+            .flattenAsObservable { it }
+            .flatMapSingle { loadImageUrl(it) }
+            .toList()
 
-		return network
-	}
-
-	fun movie(traktId: String): Single<Movie> {
-		val network = trakAPI.summary(traktId, Extended.FULL)
-				.flatMap { loadImageUrl(it) }
-
-		return network
-	}
+	fun movie(traktId: String): Single<Movie> =
+            trakAPI.summary(traktId, Extended.FULL)
+            .flatMap { loadImageUrl(it) }
 
 	private fun loadImageUrl(trendingMovie: TrendingMovie): Single<TrendingMovie> {
 		return trendingMovie.movie?.let { loadImageUrl(it).map { trendingMovie } } ?: Single.just(trendingMovie)

@@ -17,7 +17,6 @@ class MoviePresenter @Inject constructor(var repository: MovieRepository) : Base
 				.subscribe(
 						{
 							showMovie(it)
-
 						},
 						{
 							view?.showError(it, false)

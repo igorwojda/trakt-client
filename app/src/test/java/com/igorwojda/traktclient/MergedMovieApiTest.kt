@@ -18,7 +18,7 @@ import org.mockito.Mockito.`when`
 import org.mockito.junit.MockitoJUnit
 import org.mockito.junit.MockitoRule
 import com.igorwojda.traktclient.core.net.trakt.entity.Movie as TraktMovie
-import com.igorwojda.traktclient.core.net.wemakesites.entity.Movie as WeMakeSitesMovie
+import com.igorwojda.traktclient.core.net.fanarttv.entity.Movie as WeMakeSitesMovie
 
 class MergedMovieApiTest {
 
