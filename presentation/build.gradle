@@ -1,11 +1,11 @@
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
+apply plugin: "com.android.application"
+apply plugin: "kotlin-android"
+apply plugin: "kotlin-android-extensions"
+apply plugin: "kotlin-kapt"
 
 android {
     compileSdkVersion 26
-    buildToolsVersion '26.0.2'
+    buildToolsVersion "26.0.2"
     defaultConfig {
         applicationId "com.igorwojda.traktclient"
         minSdkVersion 21
@@ -17,11 +17,11 @@ android {
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
     }
     sourceSets {
-        androidTest.java.srcDirs += 'src/androidTest/kotlin'
+        androidTest.java.srcDirs += "src/androidTest/kotlin"
     }
 }
 
@@ -29,71 +29,73 @@ kapt {
     generateStubs = true
 }
 
-ext.support_librry_version = '26.1.0'
-ext.dagger_version = '2.14.1'
-ext.retrofit_version = '2.3.0'
-ext.mockito_version = '2.15.0'
-ext.leak_canary_version = '1.5.4'
+def supportLibraryVersion = "26.1.0"
+def daggerVersion = "2.14.1"
+def retrofitVersion = "2.3.0"
+def okHttpVersion = "3.9.1"
+def mockitoVersion = "2.15.0"
+def leakCanaryVersion = "1.5.4"
+def rxJavaVersion = "2.1.10"
+def rxAndroidVersion = "2.0.2"
+def conductorVersion = "2.0.7"
+def mosbyConductorVersion = "0.8.2"
+def adapterDelegatesVersion = "3.0.1"
+def jodaTimeVersion = "2.9.9"
+def glideVersion = "4.0.0"
+def catVersion = "1.0.5"
 
 dependencies {
     implementation project(":domain")
     implementation project(":data")
 
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestCompile("com.android.support.test.espresso:espresso-contrib:2.2.2") {
-        exclude group: 'com.android.support', module: 'appcompat'
-        exclude group: 'com.android.support', module: 'appcompat-v7'
-        exclude group: 'com.android.support', module: 'design'
-        exclude group: 'com.android.support', module: 'support-v4'
-        exclude group: 'com.android.support', module: 'recyclerview-v7'
-        exclude group: 'com.android.support', module: 'support-annotations'
-    }
-    testCompile 'junit:junit:4.12'
+    implementation fileTree(include: ["*.jar"], dir: "libs")
 
-    implementation ("org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version") {
-        exclude group: 'org.jetbrains', module: 'app'
-    }
+    implementation "javax.inject:javax.inject:1"
+
+
+    testImplementation "junit:junit:4.12"
 
     //Support
-    implementation "com.android.support:appcompat-v7:$support_librry_version"
-    implementation "com.android.support:design:$support_librry_version"
-    implementation "com.android.support:recyclerview-v7:$support_librry_version"
-    implementation "com.android.support:support-v4:$support_librry_version"
+    implementation "com.android.support:appcompat-v7:$supportLibraryVersion"
+    implementation "com.android.support:design:$supportLibraryVersion"
+    implementation "com.android.support:recyclerview-v7:$supportLibraryVersion"
+    implementation "com.android.support:support-v4:$supportLibraryVersion"
 
     //Leak Canary
-    debugImplementation "com.squareup.leakcanary:leakcanary-android:$leak_canary_version"
-    releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leak_canary_version"
+    debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakCanaryVersion"
+    releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanaryVersion"
 
     //Retrofit
-    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
-    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.9.0'
-    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okHttpVersion"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
 
-    implementation 'io.reactivex.rxjava2:rxjava:2.1.9'
-    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    //RxJava
+    implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
+    implementation "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
 
     //MVP
-    implementation 'com.bluelinelabs:conductor:2.0.7'
-    implementation 'com.hannesdorfmann.mosby:mvp-conductor:0.8.2'
+    implementation "com.bluelinelabs:conductor:$conductorVersion"
+    implementation "com.hannesdorfmann.mosby:mvp-conductor:$mosbyConductorVersion"
 
     //Dagger
-    kapt "com.google.dagger:dagger-compiler:$dagger_version"
-    kaptTest "com.google.dagger:dagger-compiler:$dagger_version"
-    kaptAndroidTest "com.google.dagger:dagger-compiler:$dagger_version"
+    implementation "com.google.dagger:dagger:$daggerVersion"
+    kapt "com.google.dagger:dagger-compiler:$daggerVersion"
+    kaptTest "com.google.dagger:dagger-compiler:$daggerVersion"
+    kaptAndroidTest "com.google.dagger:dagger-compiler:$daggerVersion"
 
     //Mockito
-    testImplementation "org.mockito:mockito-core:$mockito_version"
-    androidTestImplementation "org.mockito:mockito-core:$mockito_version"
+    testImplementation "org.mockito:mockito-core:$mockitoVersion"
+    androidTestImplementation "org.mockito:mockito-core:$mockitoVersion"
 
     //Other
-    implementation 'com.hannesdorfmann:adapterdelegates3:3.0.1'
-    implementation 'joda-time:joda-time:2.9.9'
-    implementation 'com.github.bumptech.glide:glide:3.7.0'
-    implementation 'com.google.dagger:dagger:2.13'
-    implementation 'net.vrallev.android:cat:1.0.5'
-    implementation 'com.facebook.stetho:stetho:1.5.0'
+    implementation "com.hannesdorfmann:adapterdelegates3:$adapterDelegatesVersion"
+    implementation "joda-time:joda-time:$jodaTimeVersion"
+    implementation "com.github.bumptech.glide:glide:$glideVersion"
+    implementation "net.vrallev.android:cat:$catVersion"
 }
+
 repositories {
     mavenCentral()
 }

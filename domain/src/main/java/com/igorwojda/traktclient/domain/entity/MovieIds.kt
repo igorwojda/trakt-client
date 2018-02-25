@@ -1,0 +1,8 @@
+package com.igorwojda.traktclient.domain.entity
+
+class MovieIds (
+	var trakt: String? = null,
+	var imdb: String? = null,
+	var tmdb: String? = null,
+	var slug: String? = null
+)

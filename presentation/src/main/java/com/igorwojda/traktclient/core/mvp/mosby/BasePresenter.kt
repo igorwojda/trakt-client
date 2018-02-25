@@ -11,7 +11,7 @@ abstract class BasePresenter<T : MvpView> : MvpBasePresenter<T>(){
 
 	val navigator by lazy { (view as? BaseLceView<*>)?.navigator }
 
-	protected fun addSubscription(subscription: Disposable) = compositeDisposable.add(subscription)
+    protected fun registerDisposable(subscription: Disposable) = compositeDisposable.add(subscription)
 
 	override fun detachView(retainInstance: Boolean) {
 		super.detachView(retainInstance)
