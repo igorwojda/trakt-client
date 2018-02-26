@@ -23,7 +23,7 @@ class TraktAuthenticator() : Authenticator {
             if (TraktRemoteRepository.refreshToken.isNullOrEmpty())
                 return null
 
-            val refreshResponse = TraktRemoteRepository.refreshAccessToken()
+            val refreshResponse = TraktRemoteRepository.refreshAccessToken() ?: return null
 
             if (!refreshResponse.isSuccessful)
                 return null

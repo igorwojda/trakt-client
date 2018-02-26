@@ -1,10 +1,12 @@
 package com.igorwojda.traktclient.data.repository.trakt.retrofit
 
 import com.igorwojda.traktclient.data.repository.trakt.TraktRemoteRepository
+import com.igorwojda.traktclient.data.repository.trakt.TraktRemoteRepository.Companion.getAuthenticationHeaderValue
 import okhttp3.Interceptor
 import okhttp3.Response
+import javax.inject.Inject
 
-class TraktRequestInterceptor : Interceptor {
+class TraktRequestInterceptor @Inject constructor(): Interceptor {
 
 	override fun intercept(chain: Interceptor.Chain): Response {
 		val request = chain.request()

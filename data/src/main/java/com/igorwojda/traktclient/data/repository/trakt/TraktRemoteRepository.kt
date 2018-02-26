@@ -1,5 +1,6 @@
 package com.igorwojda.traktclient.data.repository.trakt
 
+import com.igorwojda.traktclient.data.repository.trakt.service.Authentication
 import com.igorwojda.traktclient.data.repository.trakt.service.TraktRetrofitService
 import com.igorwojda.traktclient.domain.entity.AccessToken
 import com.igorwojda.traktclient.domain.entity.Movie
@@ -9,12 +10,14 @@ import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import retrofit2.Response
 import retrofit2.Retrofit
+import sun.net.www.http.HttpClient
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class TraktRemoteRepository @Inject constructor(private val traktRetrofitService: TraktRetrofitService,
-                                                private val retrofit: Retrofit) : TraktRepository {
+                                                private val retrofit: Retrofit,
+                                                private val okHttpClient: HttpClient) : TraktRepository {
     companion object {
         const val API_URL = "https://api.trakt.tv/"
         const val HEADER_AUTHORIZATION = "Authorization"
@@ -32,15 +35,16 @@ class TraktRemoteRepository @Inject constructor(private val traktRetrofitService
 
         fun getAuthenticationHeaderValue(): String = "${TraktRemoteRepository.BEARER_PREFIX} ${TraktRemoteRepository.accessToken}"
 
-        fun refreshAccessToken(): Response<AccessToken> {
+        //Todo:
+        fun refreshAccessToken(): Response<AccessToken>? {
 //            return retrofit.create(Authentication::class.java).refreshAccessToken(
 //                    "refresh_token",
 //                    refreshToken,
 //                    apiKey,
 //                    clientSecret
 //            ).execute()
+            return null
         }
-
     }
 
     override fun getTrendingMovieList(): Single<List<TrendingMovie>> =
