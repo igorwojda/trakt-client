@@ -1,6 +1,6 @@
 package com.igorwojda.traktclient.core.net.wemakesites.service
 
-import com.igorwojda.traktclient.core.net.fanarttv.entity.Movie
+import com.igorwojda.traktclient.core.net.wemakesites.entity.Movie
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Path

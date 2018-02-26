@@ -1,6 +1,6 @@
 package com.igorwojda.traktclient.core.net.wemakesites
 
-import com.igorwojda.traktclient.core.net.fanarttv.entity.Movie
+import com.igorwojda.traktclient.core.net.wemakesites.entity.Movie
 import com.igorwojda.traktclient.core.net.wemakesites.retrofit.WeMakeSitesGsonHelper
 import com.igorwojda.traktclient.core.net.wemakesites.retrofit.WeMakeSitesRequestInterceptor
 import com.igorwojda.traktclient.core.net.wemakesites.service.Movies
